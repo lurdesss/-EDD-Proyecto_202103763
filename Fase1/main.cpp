@@ -2,9 +2,11 @@
 #include <windows.h>  // Incluye la biblioteca de Windows para cambiar la página de códigos
 #include "include/Utils.h"
 #include "include/UserList.h"
+#include "include/listapublicaciones.h"
 #include <limits> // Para std::numeric_limits
 #include <fstream>
 #include "json.hpp"
+#include <ctime>
 
 using namespace std;
 
@@ -23,6 +25,32 @@ const string RESET = "\033[0m";
 
 
 using json = nlohmann::json;
+
+void cargarPublicacionesDesdeJSON(ListaDePublicaciones& listaDePublicaciones) {
+    std::string filePath;
+    std::cout << "Ingrese el path del archivo JSON: ";
+    std::getline(std::cin, filePath);
+
+    std::ifstream archivo(filePath);
+    if (!archivo.is_open()) {
+        std::cerr << "No se pudo abrir el archivo: " << filePath << std::endl;
+        return;
+    }
+
+    json publicacionesJSON;
+    archivo >> publicacionesJSON;
+
+    for (const auto& publicacion : publicacionesJSON) {
+        std::string correo = publicacion["correo"];
+        std::string contenido = publicacion["contenido"];
+        std::string fecha = publicacion["fecha"];
+        std::string hora = publicacion["hora"];
+        listaDePublicaciones.agregarPublicacion(correo, contenido, fecha, hora);
+    }
+
+    archivo.close();
+    std::cout << "Proceso de carga desde " << filePath << " finalizado." << std::endl;
+}
 
 void cargarUsuariosDesdeJSON(UserList& userList) {
     std::string filePath;
@@ -51,16 +79,32 @@ void cargarUsuariosDesdeJSON(UserList& userList) {
     std::cout << "Proceso de carga desde " << filePath << " finalizado." << std::endl;
 }
 
+
 int main() {
     SetConsoleOutputCP(CP_UTF8); // Cambia la página de códigos a UTF-8
     // Listas
     UserList userList; // Lista de usuarios
+    ListaDePublicaciones listaDePublicaciones(&userList);
 
     // Variables
     string consoleFName, consoleLName, consoleBDate, consoleEmail, consolePwd; // variables para registro de usuarios
     string email, password; // variables para autenticación de entrada
     string emailToDelete; // variable para eliminar usuario
     string usuarioActual; // variable para almacenar el usuario actual
+    string micorreo, micontenido, mifecha, mihora; // variables para publicaciones
+    string fechaAElimiar, horaAEliminar, emailToDeleteNews; // variables para eliminar publicaciones
+
+
+    // fecha y hora actual
+    std::time_t tiempoActual = std::time(nullptr);
+    std::tm* tiempoLocal = std::localtime(&tiempoActual);
+
+    // Formatear la fecha y la hora
+    char fecha[11]; // Buffer para la fecha en formato "YYYY-MM-DD"
+    std::strftime(fecha, sizeof(fecha), "%Y-%m-%d", tiempoLocal);
+
+    char hora[9]; // Buffer para la hora en formato "HH:MM:SS"
+    std::strftime(hora, sizeof(hora), "%H:%M:%S", tiempoLocal);
     
     int optionmain;
 
@@ -123,6 +167,7 @@ int main() {
                                 break;
                             case 3:
                                 cout << "Carga de publicaciones" << endl;
+                                cargarPublicacionesDesdeJSON(listaDePublicaciones);
                                 break;
                             case 4: {
                                 cout << "Gestión de usuarios" << endl;
@@ -131,7 +176,7 @@ int main() {
                                     // Mostrar opciones de gestión de usuarios para el administrador
                                     moduloAdministradorA();
                                     cout << endl;
-                                    cout << "Ingrese una opción (a para eliminar usuarios, q para volver al menu): ";
+                                    cout << "Ingrese una opción (a para eliminar usuarios, x para volver al menu): ";
                                     cin >> optionadmina;
                                     cout << endl;
 
@@ -154,6 +199,7 @@ int main() {
                                             cout << "Ingrese el correo del usuario a eliminar: ";
                                             getline(cin, emailToDelete);
                                             userList.deleteUserByEmail(emailToDelete);
+                                            cout << "Se ha eliminado al usuario" << emailToDelete << endl;
                                             break;
                                         case 'x':
                                             cout << "Saliendo de gestión de usuarios..." << endl;
@@ -163,7 +209,7 @@ int main() {
                                             cout << endl;
                                             break;
                                     }
-                                } while (optionadmina != 'x'); // Se repite el ciclo hasta que elija 'x' para salir
+                                } while (optionadmina != 'x');
                                 break;
                             }
                             case 5:
@@ -224,12 +270,15 @@ int main() {
 
                                     switch (optionuser1) {
                                         case 'a':
-                                            cout << "Ver perfil" << endl;
-                                            cout << usuarioActual << endl;
+                                            cout << usuarioActual << GREEN << " [ Estado: Activo ]" << RESET << endl;
+                                            cout << "Correo: " << email << endl;
+                                            cout << "Fecha de nacimiento: " << userList.getBirthDateByEmail(email) << endl;
                                             break;
                                         case 'b':
-                                            cout << "Eliminar cuenta" << endl;
                                             userList.deleteUserByEmail(email);
+                                            optionuser1 = 'x';
+                                            optionuser =5;
+                                            cout << RED << "Su cuenta ha sido eliminada" << RESET << endl;
                                             break;
                                         case 'x':
                                             cout << "Saliendo de perfil..." << endl;
@@ -298,12 +347,25 @@ int main() {
                                     switch (optionuser3) {
                                         case 'a':
                                             cout << "Ver publicaciones" << endl;
+                                            // lista circular doblemente enlazada mis publicaciones y las de mis amigos
                                             break;
                                         case 'b':
                                             cout << "Crear publicación" << endl;
+                                            micorreo = email;
+                                            cout << "Ingrese el contenido de la publicación: ";
+                                            getline(cin, micontenido);
+                                            mifecha = fecha;
+                                            mihora = hora;
+                                            listaDePublicaciones.agregarPublicacion(micorreo, micontenido, mifecha, mihora);
                                             break;
                                         case 'c':
                                             cout << "Eliminar publicación" << endl;
+                                            emailToDeleteNews = email;
+                                            cout << "Ingrese la fecha de la publicación a eliminar (YYYY-MM-DD): ";
+                                            getline(cin, fechaAElimiar);
+                                            cout << "Ingrese la hora de la publicación a eliminar (HH:MM:SS): ";
+                                            getline(cin, horaAEliminar);
+                                            listaDePublicaciones.eliminarPublicacion(emailToDeleteNews, fechaAElimiar, horaAEliminar);
                                             break;
                                         case 'x':
                                             cout << "Saliendo de publicaciones..." << endl;
@@ -339,7 +401,6 @@ int main() {
                 }
                 break;
             }
-
             case 2: {
                 cout << "[ Registro ]" << endl;
                 cout << endl;
@@ -357,20 +418,27 @@ int main() {
                 userList.addUser(consoleFName, consoleLName, consoleBDate, consoleEmail, consolePwd);
                 break;
             }
-
             case 3:
-                cout << "Imprimiendo informacion" << endl;
+                cout << GREEN << "[ Fase 1 ]" << RESET << endl;
+                cout << endl;
+                cout << CYAN << "Nombre: " << RESET << endl;
+                cout << "       Jennifer Yulissa Lourdes Taperio Manuel " << endl;
+                cout << CYAN << "Carnet: " << RESET << endl;
+                cout << "       202103763 " << endl;
+                cout << CYAN << "Curso: " << RESET << endl;
+                cout << "       Estructura de Datos " << endl;
+                cout << CYAN << "Seccion: " << RESET << endl;
+                cout << "       C " << endl;
+                listaDePublicaciones.mostrarPublicaciones();
                 break;
-
             case 4:
                 cout << RED << "Ha salido de [social structure]" << RESET << endl;
+                cout << endl;
                 break;
-
             default:
                 cout << "Opcion invalida" << endl;
                 break;
         }
     } while (optionmain != 4);
-
     return 0;
 }

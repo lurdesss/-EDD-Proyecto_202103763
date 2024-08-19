@@ -86,7 +86,6 @@ void UserList::deleteUserByEmail(const string& atrEmail) {
             }
             delete actual;
             tamaño--;
-            cout << "Usuario eliminado exitosamente." << endl;
             return;
         }
         previo = actual;
@@ -105,6 +104,17 @@ string UserList::foundUser(const string& atrEmail) {
     while (actual != nullptr) {
         if (actual->atrEmail == atrEmail) {
             return actual->atrFName + " " + actual->atrLName;
+        }
+        actual = actual->siguiente;
+    }
+    return "";
+}
+
+string UserList::getBirthDateByEmail(const string& atrEmail) {
+    User* actual = primero;
+    while (actual != nullptr) {
+        if (actual->atrEmail == atrEmail) {
+            return actual->atrBDate;
         }
         actual = actual->siguiente;
     }
