@@ -13,7 +13,7 @@ void menuLogin(){
 
 void moduloAdministrador(){
     cout << "1. Carga de usuarios" << endl;
-    cout << "2. Carga de relaciones" << endl;
+    cout << "2. Carga de solicitudes" << endl;
     cout << "3. Carga de publicaciones" << endl;
     cout << "4. Gestion de usuarios" << endl; // moduloAdministradorA es submenu
     cout << "5. Reportes" << endl;

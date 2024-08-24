@@ -1,0 +1,22 @@
+digraph G {
+node [shape=box, style=filled, fillcolor=lightblue, fontcolor=black, color=none];
+rankdir=LR;
+node0 [label="juan.martinez@example.com\nA veces solo necesitas una taza de té y un buen libro.\nFecha: 21/08/2024\nHora: 20:30"];
+node0 -> node1;
+node1 -> node0;
+node1 [label="juan.martinez@example.com\nnueva publicacion realizada\nFecha: 2024-08-24\nHora: 13:39:07"];
+node1 -> node2;
+node2 -> node1;
+node2 [label="ana.hernandez@example.com\nLos atardeceres en la ciudad son simplemente mágicos, me encanta.\nFecha: 13/08/2024\nHora: 18:12"];
+node2 -> node3;
+node3 -> node2;
+node3 [label="ana.hernandez@example.com\nRecordando viejos tiempos con amigos, esas memorias nunca se olvidan.\nFecha: 12/08/2024\nHora: 21:05"];
+node3 -> node4;
+node4 -> node3;
+node4 [label="laura.ramirez@example.com\nLa lectura de un buen libro puede cambiar tu perspectiva del mundo.\nFecha: 20/08/2024\nHora: 16:45"];
+node4 -> node5;
+node5 -> node4;
+node5 [label="laura.ramirez@example.com\nLa naturaleza siempre tiene una forma de sorprendernos, es increíble.\nFecha: 20/08/2024\nHora: 18:30"];
+node5 -> node0;
+node0 -> node5;
+}

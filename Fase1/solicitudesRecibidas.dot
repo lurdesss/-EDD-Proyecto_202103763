@@ -1,0 +1,5 @@
+digraph G {
+node [shape=box, style=filled, fillcolor=lightgray, fontcolor=black, color=none];
+rankdir=BT;
+  nodo0 [label="[Solicitud] \nEmisor: miguel.rodriguez@example.com\nReceptor: juan.martinez@example.com\nEstado: PENDIENTE"];
+}

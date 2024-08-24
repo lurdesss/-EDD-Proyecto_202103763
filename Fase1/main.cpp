@@ -13,8 +13,8 @@
 
 using namespace std;
 
-const string ADMIN_EMAIL = "3312"; //admin@gmail.com
-const string ADMIN_PASSWORD = "3312"; //EDD2S2024
+const string ADMIN_EMAIL = "admin@gmail.com"; 
+const string ADMIN_PASSWORD = "EDD2S2024"; 
 
 // ANSI para consola
 const string RED = "\033[31m";
@@ -148,7 +148,7 @@ int main() {
                 cout << endl;
                 // Inicio de sesión de administrador
                 if (email == ADMIN_EMAIL && password == ADMIN_PASSWORD) {
-                    cout << "Bienvenido administrador" << endl;
+                    cout << GREEN << "  Bienvenido Administrador" << RESET << endl;
                     int optionadmin;
                     do {
                         cout << endl;
