@@ -2,11 +2,14 @@
 #define USERLIST_H
 
 #include "User.h"
+#include <string>
+#include <fstream>
 
 class UserList {
 private:
     User* primero;  // Puntero al primer usuario de la lista.
     int tamaño;     // Contador de usuarios
+    int usrId; // Contador para generar IDs únicos
 
 public:
     UserList();
@@ -20,6 +23,10 @@ public:
     int getSize() const;  // Método para obtener el tamaño de la lista
     string foundUser(const string& atrEmail);
     string getBirthDateByEmail(const string& atrEmail);
+    int getId(const string& atrEmail);
+
+    void generateDot(const std::string& filename) const;
+    void renderGraphviz(const std::string& dotFilename, const std::string& imageFilename) const;
 };
 
 #endif

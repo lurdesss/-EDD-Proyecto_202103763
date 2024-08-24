@@ -6,7 +6,7 @@ using namespace std; // espacio de nombres estándar
 
 struct User { // Nodo de la lista de usuarios
     // Atributos
-    int id; //id
+    int atrId; //id
     string atrFName;
     string atrLName;
     string atrBDate;
@@ -15,7 +15,7 @@ struct User { // Nodo de la lista de usuarios
     User* siguiente; //puntero al siguiente usuario
     
     // Constructor
-    User(string paramFName, string paramLName, string paramBDate, string paramEmail, string paramPwd);
+    User(int paramId, string paramFName, string paramLName, string paramBDate, string paramEmail, string paramPwd);
 };
 
 #endif

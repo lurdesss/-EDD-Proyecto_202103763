@@ -50,7 +50,7 @@ void moduloUsuario2I(){
     cout << "x. Volver" << endl;
 }
 
-void moduloUsuario2IK(){
+void moduloUsuario2ISI(){
     // despues de entrada
     cout << "a. Aceptar" << endl;
     cout << "b. Rechazar" << endl;

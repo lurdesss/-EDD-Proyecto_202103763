@@ -1,5 +1,7 @@
 #include "listapublicaciones.h"
+#include "nodocorreo.h"
 #include <iostream>
+#include <cstdlib>
 
 ListaDePublicaciones::ListaDePublicaciones(UserList* listaUsuarios) : cabeza(nullptr), cola(nullptr), listaUsuarios(listaUsuarios) {}
 
@@ -35,7 +37,6 @@ void ListaDePublicaciones::eliminarPublicacion(const std::string& correo, const 
 
     while (actual != nullptr) {
         if (actual->correo == correo && actual->fecha == fecha && actual->hora == hora) {
-            // Encontrar la publicación que coincide con el correo, fecha y hora
             if (actual->anterior) {
                 actual->anterior->siguiente = actual->siguiente;
             } else {
@@ -62,4 +63,126 @@ void ListaDePublicaciones::mostrarPublicaciones() const {
         actual->mostrar();
         actual = actual->siguiente;
     }
+}
+
+void ListaDePublicaciones::mostrarTopPublicaciones() const {
+    // Paso 1: Contar publicaciones y crear nodos
+    NodoCorreo* cabezaLista = nullptr;
+    NodoCorreo* colaLista = nullptr;
+
+    // Contar publicaciones por correo
+    Publicacion* actual = cabeza;
+    while (actual != nullptr) {
+        // Buscar si el nodo con el correo ya existe
+        NodoCorreo* nodoActual = cabezaLista;
+        NodoCorreo* nodoAnterior = nullptr;
+        bool encontrado = false;
+        while (nodoActual != nullptr) {
+            if (nodoActual->correo == actual->correo) {
+                nodoActual->conteo++;
+                encontrado = true;
+                break;
+            }
+            nodoAnterior = nodoActual;
+            nodoActual = nodoActual->siguiente;
+        }
+
+        // Si no se encontró el nodo, agregar uno nuevo
+        if (!encontrado) {
+            NodoCorreo* nuevoNodo = new NodoCorreo(actual->correo, 1);
+            if (colaLista == nullptr) {
+                cabezaLista = colaLista = nuevoNodo;
+            } else {
+                colaLista->siguiente = nuevoNodo;
+                nuevoNodo->anterior = colaLista;
+                colaLista = nuevoNodo;
+            }
+        }
+
+        actual = actual->siguiente;
+    }
+
+    // Paso 2: Ordenar la lista usando el algoritmo de burbuja
+    bool intercambiado;
+    do {
+        intercambiado = false;
+        NodoCorreo* nodoActual = cabezaLista;
+        while (nodoActual != nullptr && nodoActual->siguiente != nullptr) {
+            if (nodoActual->conteo < nodoActual->siguiente->conteo) {
+                // Intercambiar los nodos
+                std::swap(nodoActual->correo, nodoActual->siguiente->correo);
+                std::swap(nodoActual->conteo, nodoActual->siguiente->conteo);
+                intercambiado = true;
+            }
+            nodoActual = nodoActual->siguiente;
+        }
+    } while (intercambiado);
+
+    // Paso 3: Mostrar los 5 primeros correos con más publicaciones
+    std::cout << "Top 5 correos con más publicaciones:\n";
+    NodoCorreo* nodoActual = cabezaLista;
+    int count = 0;
+    while (nodoActual != nullptr && count < 5) {
+        std::cout << count + 1 << ". " << nodoActual->correo << " - " << nodoActual->conteo << " publicaciones\n";
+        nodoActual = nodoActual->siguiente;
+        count++;
+    }
+
+    // Liberar la memoria
+    while (cabezaLista != nullptr) {
+        NodoCorreo* temp = cabezaLista;
+        cabezaLista = cabezaLista->siguiente;
+        delete temp;
+    }
+}
+
+
+void ListaDePublicaciones::generateDot(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (file.is_open()) {
+        file << "digraph G {" << std::endl;
+        file << "node [shape=box, style=filled, fillcolor=lightblue, fontcolor=black, color=none];" << std::endl;
+        file << "rankdir=LR;" << std::endl;
+
+        Publicacion* actual = cabeza;
+        int id = 0;
+        while (actual != nullptr) {
+            file << "node" << id << " [label=\""
+                 << actual->correo 
+                 << "\\n" << actual->contenido 
+                 << "\\nFecha: " << actual->fecha 
+                 << "\\nHora: " << actual->hora 
+                 << "\"];" << std::endl;
+
+            if (actual->siguiente != nullptr) {
+                file << "node" << id << " -> node" << (id + 1) << " [label=\"siguiente\"];" << std::endl;
+                file << "node" << (id + 1) << " -> node" << id << " [label=\"anterior\"];" << std::endl;
+            }
+
+            actual = actual->siguiente;
+            id++;
+        }
+
+        file << "}" << std::endl;  // Cerrar la definición del gráfico
+        file.close();
+    } else {
+        std::cout << "No se pudo abrir el archivo" << std::endl;
+    }
+}
+
+void ListaDePublicaciones::renderGraphviz(const std::string& dotFilename, const std::string& imageFilename) const {
+    generateDot(dotFilename);  // Generar el archivo .dot
+    std::string command = "dot -Tpng " + dotFilename + " -o " + imageFilename;
+    system(command.c_str());
+
+    // Abrir el archivo de imagen después de generarlo
+    #ifdef _WIN32
+        std::string openCommand = "start " + imageFilename;
+    #elif __APPLE__
+        std::string openCommand = "open " + imageFilename;
+    #else
+        std::string openCommand = "xdg-open " + imageFilename;
+    #endif
+    
+    system(openCommand.c_str());
 }
