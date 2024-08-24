@@ -44,7 +44,7 @@ void UserList::addUser(const string& atrFName, const string& atrLName, const str
     primero = nuevoUsuario;
     usrId++;
     tamaño++;
-    cout << "Usuario registrado exitosamente." << endl;
+    cout << atrFName << " " << atrLName << " registrado exitosamente." << endl;
 }
 
 void UserList::printUsers() const {

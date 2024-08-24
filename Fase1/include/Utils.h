@@ -10,5 +10,6 @@ void moduloUsuario2();
 void moduloUsuario2I();
 void moduloUsuario2ISI();
 void moduloUsuario3();
+void moduloUsuario3A();
 
 #endif

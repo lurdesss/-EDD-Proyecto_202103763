@@ -38,7 +38,6 @@ void RedSocial::cargarSolicitudesDesdeJSON(const std::string& filePath) {
         // Verificar si ya existe una solicitud pendiente del emisor al receptor o viceversa
         bool existePendiente = listaSolicitudesEnviadas.existeSolicitudPendiente(emisor, receptor) ||
                                listaSolicitudesEnviadas.existeSolicitudPendiente(receptor, emisor);
-
         if (estado == "PENDIENTE") {
             if (existeAceptada) {
                 // Si ya hay una solicitud aceptada, se elimina cualquier solicitud pendiente existente
@@ -47,6 +46,7 @@ void RedSocial::cargarSolicitudesDesdeJSON(const std::string& filePath) {
             } else if (!existePendiente) {
                 // Si no hay una solicitud pendiente, se agrega la solicitud pendiente
                 listaSolicitudesEnviadas.agregarSolicitud(emisor, receptor, estado);
+                cout << "La solicitud de " << emisor << " a " << receptor << " ha sido añadida en estado: PENDIENTE" << endl;
             }
         } else if (estado == "ACEPTADA") {
             if (existePendiente) {
@@ -56,7 +56,7 @@ void RedSocial::cargarSolicitudesDesdeJSON(const std::string& filePath) {
             }
             if (!existeAceptada) {
                 // Inserta en la matriz de amigos y agrega la solicitud aceptada
-                cout << "La solicitud de " << emisor << " a " << receptor << " ha sido aceptada." << endl;
+                cout << "La solicitud de " << emisor << " a " << receptor << " ha sido añadida con estado: ACEPTADA" << endl;
                 bool valor = true;
                 int emisorId = listaUsuarios->getId(emisor);
                 int receptorId = listaUsuarios->getId(receptor);

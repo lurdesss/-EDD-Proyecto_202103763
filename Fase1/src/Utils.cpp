@@ -63,3 +63,9 @@ void moduloUsuario3(){
     cout << "c. Eliminar publicacion" << endl;
     cout << "x. Volver" << endl;
 }
+
+void moduloUsuario3A(){
+    cout << "a. Ver publicación anterior" << endl;
+    cout << "b. Ver publicacion siguiente" << endl;
+    cout << "x. Volver" << endl;
+}

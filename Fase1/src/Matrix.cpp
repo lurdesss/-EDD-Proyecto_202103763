@@ -1,6 +1,8 @@
 #include "Matrix.h"
 #include <fstream>
 #include <cstdlib>  // Para system()
+#include <iomanip>
+#include "ListaSimpleAmigos.h"
 
 Node::Node(int i, int j, bool value, string nombrei, string nombrej)
     : i(i), j(j), value(value), nombrei(nombrei), nombrej(nombrej) {}
@@ -208,67 +210,38 @@ void Matrix::generateGraphvizImage(const std::string& filename) const {
     std::remove(dotFilename.c_str());
 }
 
-void Matrix::generateGraphvizImage2(const std::string& filename) const {
-    std::string dotFilename = "temp.dot";
-    std::ofstream file(dotFilename);
-    if (!file.is_open()) {
-        std::cerr << "Error al abrir el archivo temporal para escribir el gráfico DOT." << std::endl;
-        return;
-    }
-
-    file << "digraph G {\n";
-    file << "    node [shape=record];\n";
-
-    // Crear subgrafos para alinear nodos en la misma fila
-    for (int i = 0; i <= height; ++i) {
-        file << "    { rank=same; ";
-        Node* row = root->down;
-        while (row) {
-            if (row->i == i) {
-                Node* column = row->right;
-                while (column) {
-                    file << "\"" << column->nombrei << "_" << column->nombrej << "\" ";
-                    column = column->right;
-                }
-                break;
-            }
-            row = row->down;
-        }
-        file << "}\n";
-    }
-
-    // Crear los nodos y conexiones entre ellos
+void Matrix::imprimirAmigosPorEmail(const string& email) const {
     Node* row = root->down;
+
     while (row) {
         Node* column = row->right;
         while (column) {
-            // Crear nodo
-            file << "    \"" << column->nombrei << "_" << column->nombrej << "\" [label=\"{" << column->nombrei << "|" << column->nombrej << "|" << (column->value ? "1" : "0") << "}\"];\n";
-
-            // Conectar a la derecha
-            if (column->right) {
-                file << "    \"" << column->nombrei << "_" << column->nombrej << "\" -> \"" << column->right->nombrei << "_" << column->right->nombrej << "\" [dir=both];\n";
+            if (column->nombrei == email || column->nombrej == email) {
+                if (column->value) {
+                    if (column->nombrei == email) {
+                        cout << column->nombrej << endl;
+                    }
+                }
             }
-
-            // Conectar hacia abajo
-            if (column->down) {
-                file << "    \"" << column->nombrei << "_" << column->nombrej << "\" -> \"" << column->down->nombrei << "_" << column->down->nombrej << "\" [dir=both];\n";
-            }
-
             column = column->right;
         }
         row = row->down;
     }
+}
 
-    file << "}\n";
-    file.close();
+void Matrix::agregarAmigosPorEmail(const std::string& email, ListaSimpleAmigos& listaAmigos) const {
+    Node* row = root->down;
 
-    // Generar la imagen PNG
-    std::string command = "dot -Tpng " + dotFilename + " -o " + filename;
-    int result = system(command.c_str());
-    if (result != 0) {
-        std::cerr << "Error al generar la imagen PNG con Graphviz." << std::endl;
+    while (row) {
+        Node* column = row->right;
+        while (column) {
+            if ((column->nombrei == email || column->nombrej == email) && column->value) {
+                if (column->nombrei == email) {
+                    listaAmigos.agregarAmigo(column->nombrej);
+                }
+            }
+            column = column->right;
+        }
+        row = row->down;
     }
-
-    std::remove(dotFilename.c_str());
 }

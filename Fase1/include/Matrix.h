@@ -4,6 +4,8 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include "ListaSimpleAmigos.h"
+
 
 using namespace std;
 
@@ -47,7 +49,8 @@ public:
     void insert(int i, int j, bool value, const string& nombrei = "", const string& nombrej = "");
     void print() const;
     void generateGraphvizImage(const std::string& filename) const;
-    void generateGraphvizImage2(const std::string& filename) const;
+    void imprimirAmigosPorEmail(const string& email) const;
+    void agregarAmigosPorEmail(const std::string& email, ListaSimpleAmigos& listaAmigos) const;
 };
 
 #endif

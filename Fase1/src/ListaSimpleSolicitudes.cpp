@@ -30,7 +30,6 @@ void ListaSimpleSolicitudes::imprimirLista() const {
     NodoSolicitud* actual = cabeza;
     while (actual != nullptr) {
         std::cout << "    " << actual->receptor << endl;
-                //   << " con estado: " << actual->estado << std::endl;
         actual = actual->siguiente;
     }
 }

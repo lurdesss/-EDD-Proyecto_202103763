@@ -4,6 +4,8 @@
 #include "include/UserList.h"
 #include "include/listapublicaciones.h"
 #include "include/RedSocial.h"
+#include "include/ListaCircularDoble.h"
+#include "include/ListaSimpleAmigos.h"
 #include <limits> // Para std::numeric_limits
 #include <fstream>
 #include "json.hpp"
@@ -87,6 +89,8 @@ int main() {
     UserList userList; // Lista de usuarios
     ListaDePublicaciones listaDePublicaciones(&userList);
     RedSocial redSocial(&userList);
+    ListaCircularDoble listaCircularDoblePublicaciones;
+    ListaSimpleAmigos listaAmigosDeUsuario;
 
     // Variables
     string consoleFName, consoleLName, consoleBDate, consoleEmail, consolePwd; // variables para registro de usuarios
@@ -168,25 +172,16 @@ int main() {
                                 cout << "Carga de usuarios" << endl;
                                 cout << "Ingrese el path del archivo JSON: ";
                                 cargarUsuariosDesdeJSON(userList);
-                                userList.generateDot("usuarios.dot");
-                                userList.renderGraphviz(
-                                    "usuarios.dot", "usuarios.png");
                                 break;
                             case 2:
-                                cout << "Carga de relaciones" << endl;
+                                cout << "Carga de solicitudes" << endl;
                                 cout << "Ingrese el path del archivo JSON: ";
                                 getline(cin, fileRelaciones);
                                 redSocial.cargarSolicitudesDesdeJSON(fileRelaciones);
-                                // redSocial.listaSolicitudesEnviadas.imprimirSolicitudes();
-                                // redSocial.pilaSolicitudesRecibidas.imprimirPila();
-                                // redSocial.matrizAmigos.print();
-                                cout << "___________" << endl;
-                                redSocial.listaSolicitudesEnviadas.imprimirLista();
                                 break;
                             case 3:
                                 cout << "Carga de publicaciones" << endl;
                                 cargarPublicacionesDesdeJSON(listaDePublicaciones);
-                                redSocial.listaSolicitudesEnviadas.imprimirLista();
                                 break;
                             case 4: {
                                 cout << "Gestión de usuarios" << endl;
@@ -238,11 +233,10 @@ int main() {
                                 userList.renderGraphviz(
                                     "usuarios.dot", "usuarios.png");
                                 // grafico de relaciones de amistad (2)
+                                redSocial.matrizAmigos.generateGraphvizImage("relaciones.png");
                                 // grafico de lista doblemente enlazada de publicaciones (3)
                                 listaDePublicaciones.generateDot("publicaciones.dot");
                                 listaDePublicaciones.renderGraphviz("publicaciones.dot", "publicaciones.png");
-                                redSocial.matrizAmigos.generateGraphvizImage("relaciones.png");
-                                redSocial.matrizAmigos.generateGraphvizImage2("relaciones2.png");
                                 // top 5 usuarios con más publicaciones
                                 listaDePublicaciones.mostrarTopPublicaciones();
                                 // top 5 usuarios con menos amigos
@@ -286,7 +280,7 @@ int main() {
                                 char optionuser1;
                                 do {
                                     moduloUsuario1();
-                                    cout << "Ingrese una opción (a para ver perfil, b para eliminar cuenta, x para volver): ";
+                                    cout << "Ingrese una opción (a)Ver perfil (b)Eliminar cuenta (x)Volver: ";
                                     cin >> optionuser1;
                                     cout << endl;
 
@@ -305,6 +299,9 @@ int main() {
                                             cout << usuarioActual << GREEN << " [ Estado: Activo ]" << RESET << endl;
                                             cout << "Correo: " << email << endl;
                                             cout << "Fecha de nacimiento: " << userList.getBirthDateByEmail(email) << endl;
+                                            cout << "Amigos en [Social structure] " << endl;
+                                            cout << endl;
+                                            redSocial.matrizAmigos.imprimirAmigosPorEmail(email);
                                             break;
                                         case 'b':
                                             userList.deleteUserByEmail(email);
@@ -328,7 +325,7 @@ int main() {
                                 char optionuser2;
                                 do {
                                     moduloUsuario2();
-                                    cout << "Ingrese una opción (a para ver solicitudes, b para enviar solicitud, x para volver): ";
+                                    cout << "Ingrese una opción (a)Ver solicitudes (b)Enviar solicitud (x)Volver: ";
                                     cin >> optionuser2;
                                     cout << endl;
 
@@ -342,17 +339,13 @@ int main() {
                                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                                     switch (optionuser2) {
                                         case 'a':
-                                            cout << "Ver solicitudes" << endl;
-                                            // redSocial.listaSolicitudesEnviadas.listaSolicitudes.limpiarLista();
-                                            // redSocial.listaSolicitudesEnviadas.buscarPorReceptor(email);
-                                            // cout << "Solicitudes recibidas en estado " << YELLOW << "[PENDIENTE]" << RESET << endl;
-                                            // redSocial.listaSolicitudesEnviadas.listaSolicitudes.imprimirLista();
                                             char optionuser2i;
                                             do {
                                                 redSocial.listaSolicitudesEnviadas.pilaSolicitudes.limpiarPila();
                                                 redSocial.listaSolicitudesEnviadas.buscarPorReceptor(email);
                                                 redSocial.listaSolicitudesEnviadas.listaSolicitudes.limpiarLista();
                                                 redSocial.listaSolicitudesEnviadas.buscarPorEmisor(email);
+                                                cout << endl;
                                                 cout << "Solicitudes recibidas en estado " << YELLOW << "[PENDIENTE]" << RESET << endl;
                                                 cout << endl;
                                                 redSocial.listaSolicitudesEnviadas.pilaSolicitudes.imprimirPila(); // recibidas
@@ -371,14 +364,13 @@ int main() {
                                                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                                                 switch (optionuser2i){
                                                     case 'i':
-                                                        cout << "Elegir usuario a aceptar/rechazar" << endl;
-                                                        cout << "Ingrese el correo del usuario a aceptar/rechazar: ";
+                                                        cout << "Ingrese el correo del usuario a Aceptar/Rechazar: ";
                                                         getline(cin, emisorMain);
                                                         if (redSocial.listaSolicitudesEnviadas.pilaSolicitudes.existeSolicitudPendiente(emisorMain, email)) {
                                                             char optionuser2ik;
                                                             do {
                                                                 moduloUsuario2ISI();
-                                                                cout << "Ingrese una opción (a para aceptar, b para rechazar, x para volver): ";
+                                                                cout << "Ingrese una opción (a)Aceptar (b)Rechazar (x)Volver): ";
                                                                 cin >> optionuser2ik;
                                                                 cout << endl;
                                                                 while (cin.fail()) {
@@ -392,7 +384,6 @@ int main() {
                                                                 switch (optionuser2ik) {
                                                                     case 'a':
                                                                         redSocial.listaSolicitudesEnviadas.eliminarSolicitud(emisorMain, email, "PENDIENTE");
-                                                                        // redSocial.listaSolicitudesEnviadas.listaSolicitudes.limpiarLista();
                                                                         redSocial.matrizAmigos.insert(userList.getId(emisorMain), userList.getId(email), true, emisorMain, email);
                                                                         redSocial.matrizAmigos.insert(userList.getId(email), userList.getId(emisorMain), true, email, emisorMain);
 
@@ -401,7 +392,7 @@ int main() {
                                                                         break;
                                                                     case 'b':
                                                                         redSocial.listaSolicitudesEnviadas.eliminarSolicitud(emisorMain, email, "PENDIENTE");
-                                                                        cout << "Se ha " << GREEN << "RECHAZADO" << RESET << " la solicitud de " << emisorMain << endl;
+                                                                        cout << "Se ha " << RED << "RECHAZADO" << RESET << " la solicitud de " << emisorMain << endl;
                                                                         optionuser2ik = 'x';
                                                                         break;
                                                                     case 'x':
@@ -440,6 +431,7 @@ int main() {
                                                 continue;
                                             }
                                             redSocial.listaSolicitudesEnviadas.agregarSolicitud(email, receptorMain, "PENDIENTE");
+                                            cout << "Se ha enviado una solicitud de amistad a " << receptorMain << endl;
                                             break;
                                         case 'x':
                                             cout << "Saliendo de solicitudes..." << endl;
@@ -455,7 +447,7 @@ int main() {
                                 char optionuser3;
                                 do {
                                     moduloUsuario3();
-                                    cout << "Ingrese una opción (a para ver publicaciones, b para crear publicación, c para eliminar publicación, x para volver): ";
+                                    cout << "Ingrese una opción (a)Ver publicaciones (b)Crear publicación (c)Eliminar publicación (x) volver): ";
                                     cin >> optionuser3;
                                     cout << endl;
 
@@ -471,8 +463,15 @@ int main() {
 
                                     switch (optionuser3) {
                                         case 'a':
-                                            cout << "Ver publicaciones" << endl;
+                                            cout << "Ver publicaciones de " << GREEN << usuarioActual << RESET << endl;
                                             // lista circular doblemente enlazada mis publicaciones y las de mis amigos
+                                            listaCircularDoblePublicaciones.limpiar();
+                                            listaDePublicaciones.buscarPublicacionesPorEmail(email, listaCircularDoblePublicaciones);
+                                            listaAmigosDeUsuario.limpiarLista();
+                                            redSocial.matrizAmigos.agregarAmigosPorEmail(email, listaAmigosDeUsuario);
+                                            listaDePublicaciones.buscarPublicacionesPorListaEmails(listaAmigosDeUsuario, listaCircularDoblePublicaciones);
+                                            cout << endl;
+                                            listaCircularDoblePublicaciones.navegarPublicaciones();
                                             break;
                                         case 'b':
                                             cout << "Crear publicación" << endl;
@@ -484,11 +483,14 @@ int main() {
                                             listaDePublicaciones.agregarPublicacion(micorreo, micontenido, mifecha, mihora);
                                             break;
                                         case 'c':
+                                            listaCircularDoblePublicaciones.limpiar();
+                                            listaDePublicaciones.buscarPublicacionesPorEmail(email, listaCircularDoblePublicaciones);
+                                            listaCircularDoblePublicaciones.mostrarPublicaciones();
                                             cout << "Eliminar publicación" << endl;
                                             emailToDeleteNews = email;
-                                            cout << "Ingrese la fecha de la publicación a eliminar (YYYY-MM-DD): ";
+                                            cout << "Ingrese" << YELLOW << " FECHA " << RESET <<"de publicación a eliminar (YYYY-MM-DD) [formato opcional]: ";
                                             getline(cin, fechaAElimiar);
-                                            cout << "Ingrese la hora de la publicación a eliminar (HH:MM:SS): ";
+                                            cout << "Ingrese" << YELLOW << " HORA " << RESET <<"de publicación a eliminar (HH:MM:SS) [formato opcional]: ";
                                             getline(cin, horaAEliminar);
                                             listaDePublicaciones.eliminarPublicacion(emailToDeleteNews, fechaAElimiar, horaAEliminar);
                                             break;
@@ -503,31 +505,41 @@ int main() {
                                 } while (optionuser3 != 'x');
                                 break;
                             case 4:
-                                cout << "Reportes" << endl;
-                                cout << "Imprimiendo reportes para " << GREEN << usuarioActual << RESET << endl;
-                                cout << "Solicitudes enviadas y recibidas" << endl; //GRAFICO: lista de solicitudes enviadas, pila de solicitudes recibidas
+                                cout << endl;
+                                cout << "Imprimiendo reportes para " << YELLOW << usuarioActual << RESET << endl;
+                                cout << "Gráfico de solicitudes [enviadas] / [recibidas]" << endl; //GRAFICO: lista de solicitudes enviadas, pila de solicitudes recibidas
+                                // caso 1
                                 redSocial.listaSolicitudesEnviadas.pilaSolicitudes.limpiarPila();
                                 redSocial.listaSolicitudesEnviadas.buscarPorReceptor(email);
+                                // caso 2
                                 redSocial.listaSolicitudesEnviadas.listaSolicitudes.limpiarLista();
                                 redSocial.listaSolicitudesEnviadas.buscarPorEmisor(email);
-                                cout << "Generando gráfico de pila de solicitudes recibidas" << endl;
+                                cout << "Generando gráfico de pila de solicitudes RECIBIDAS" << endl; // caso 1
                                 redSocial.listaSolicitudesEnviadas.pilaSolicitudes.generarDot("solicitudesRecibidas.dot");
                                 redSocial.listaSolicitudesEnviadas.pilaSolicitudes.renderGraphviz("solicitudesRecibidas.dot", "solicitudesRecibidas.png");
-                                cout << "Generando gráfico de lista de solicitudes enviadas" << endl;
-                                redSocial.listaSolicitudesEnviadas.listaSolicitudes.generateDot("solicitudesRecibidasLista.dot");
-                                redSocial.listaSolicitudesEnviadas.listaSolicitudes.renderGraphviz("solicitudesRecibidasLista.dot", "solicitudesRecibidasLista.png");
+                                cout << "Generando gráfico de lista de solicitudes ENVIADAS" << endl; // caso 2
+                                redSocial.listaSolicitudesEnviadas.listaSolicitudes.generateDot("solicitudesEnviadas.dot");
+                                redSocial.listaSolicitudesEnviadas.listaSolicitudes.renderGraphviz("solicitudesEnviadas.dot", "solicitudesEnviadas.png");
                                 
                                 cout << "Relacion de amistad" << endl; // GRAFICO: Matriz dispersa de relaciones de amistad
+                                // no realizado
                                 cout << "Publicaciones" << endl; // GRAFICO: lista circular de publicaciones de usuario y amigos
+                                listaCircularDoblePublicaciones.limpiar();
+                                listaDePublicaciones.buscarPublicacionesPorEmail(email, listaCircularDoblePublicaciones);
+                                listaAmigosDeUsuario.limpiarLista();
+                                redSocial.matrizAmigos.agregarAmigosPorEmail(email, listaAmigosDeUsuario);
+                                listaDePublicaciones.buscarPublicacionesPorListaEmails(listaAmigosDeUsuario, listaCircularDoblePublicaciones);
+                                listaCircularDoblePublicaciones.generateDot("publicacionesUsuario.dot");
+                                listaCircularDoblePublicaciones.renderGraphviz("publicacionesUsuario.dot", "publicacionesUsuario.png");
                                 cout << "Mis amigos" << endl; // LISTA: lista de amigos
                                 cout << endl;
-
+                                redSocial.matrizAmigos.imprimirAmigosPorEmail(email);
                                 break;
                             case 5:
                                 cout << RED << "Ha cerrado sesión" << RESET << endl;
                                 break;
                             default:
-                                cout << "Opcion invalida" << endl;
+                                cout << "Opcion inválida" << endl;
                                 cout << endl;
                                 break;
                         }
@@ -548,7 +560,7 @@ int main() {
                 getline(cin, consoleBDate);
                 cout << "Ingrese su correo electronico: ";
                 getline(cin, consoleEmail);
-                cout << "Ingrese su contrasena: ";
+                cout << "Ingrese su contraseña: ";
                 getline(cin, consolePwd);
 
                 userList.addUser(consoleFName, consoleLName, consoleBDate, consoleEmail, consolePwd);
@@ -565,7 +577,6 @@ int main() {
                 cout << "       Estructura de Datos " << endl;
                 cout << CYAN << "Seccion: " << RESET << endl;
                 cout << "       C " << endl;
-                listaDePublicaciones.mostrarPublicaciones();
                 break;
             case 4:
                 cout << RED << "Ha salido de [social structure]" << RESET << endl;

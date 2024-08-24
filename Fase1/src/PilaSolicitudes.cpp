@@ -31,8 +31,7 @@ void PilaSolicitudes::popSolicitud() {
 void PilaSolicitudes::imprimirPila() const {
     NodoSolicitud* actual = tope;
     while (actual != nullptr) {
-        std::cout << "Solicitud de " << actual->emisor << " a " << actual->receptor 
-                  << " con estado: " << actual->estado << std::endl;
+        std::cout << actual->emisor << endl;
         actual = actual->siguiente;
     }
 }

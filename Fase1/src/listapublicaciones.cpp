@@ -1,8 +1,10 @@
 #include "listapublicaciones.h"
+#include "ListaCircularDoble.h"
+#include "ListaSimpleAmigos.h"
 #include "nodocorreo.h"
 #include <iostream>
-#include <cstdlib>
 
+// Constructor y Destructor
 ListaDePublicaciones::ListaDePublicaciones(UserList* listaUsuarios) : cabeza(nullptr), cola(nullptr), listaUsuarios(listaUsuarios) {}
 
 ListaDePublicaciones::~ListaDePublicaciones() {
@@ -11,6 +13,7 @@ ListaDePublicaciones::~ListaDePublicaciones() {
     }
 }
 
+// Métodos de agregar y eliminar publicaciones
 void ListaDePublicaciones::agregarPublicacion(const std::string& correo, const std::string& contenido, const std::string& fecha, const std::string& hora) {
     if (!listaUsuarios->emailExists(correo)) {
         std::cout << "El correo electrónico del usuario no está registrado." << std::endl;
@@ -57,6 +60,7 @@ void ListaDePublicaciones::eliminarPublicacion(const std::string& correo, const 
     std::cout << "No se encontró una publicación con la fecha y hora especificados." << std::endl;
 }
 
+// Método para mostrar publicaciones
 void ListaDePublicaciones::mostrarPublicaciones() const {
     Publicacion* actual = cabeza;
     while (actual != nullptr) {
@@ -65,6 +69,7 @@ void ListaDePublicaciones::mostrarPublicaciones() const {
     }
 }
 
+// Método para mostrar el top de publicaciones
 void ListaDePublicaciones::mostrarTopPublicaciones() const {
     // Paso 1: Contar publicaciones y crear nodos
     NodoCorreo* cabezaLista = nullptr;
@@ -136,7 +141,18 @@ void ListaDePublicaciones::mostrarTopPublicaciones() const {
     }
 }
 
+// Método para buscar publicaciones por correo electrónico y agregarlas a la lista circular doble
+void ListaDePublicaciones::buscarPublicacionesPorEmail(const std::string& correo, ListaCircularDoble& listaCircular) const {
+    Publicacion* actual = cabeza;
+    while (actual != nullptr) {
+        if (actual->correo == correo) {
+            listaCircular.agregarPublicacion(actual->correo, actual->contenido, actual->fecha, actual->hora);
+        }
+        actual = actual->siguiente;
+    }
+}
 
+// Métodos para generar y renderizar el gráfico DOT
 void ListaDePublicaciones::generateDot(const std::string& filename) const {
     std::ofstream file(filename);
     if (file.is_open()) {
@@ -178,11 +194,28 @@ void ListaDePublicaciones::renderGraphviz(const std::string& dotFilename, const 
     // Abrir el archivo de imagen después de generarlo
     #ifdef _WIN32
         std::string openCommand = "start " + imageFilename;
-    #elif __APPLE__
-        std::string openCommand = "open " + imageFilename;
     #else
         std::string openCommand = "xdg-open " + imageFilename;
     #endif
-    
     system(openCommand.c_str());
+}
+
+
+void ListaDePublicaciones::buscarPublicacionesPorListaEmails(const ListaSimpleAmigos& listaEmails, ListaCircularDoble& listaCircular) const {
+    NodoAmigos* nodoEmail = listaEmails.obtenerCabeza();
+    
+    // Recorrer cada correo en la lista simple
+    while (nodoEmail != nullptr) {
+        Publicacion* actual = cabeza;
+
+        // Buscar y agregar publicaciones correspondientes al correo actual
+        while (actual != nullptr) {
+            if (actual->correo == nodoEmail->correo) {
+                listaCircular.agregarPublicacion(actual->correo, actual->contenido, actual->fecha, actual->hora);
+            }
+            actual = actual->siguiente;
+        }
+        
+        nodoEmail = nodoEmail->siguiente;  // Ir al siguiente correo en la lista simple
+    }
 }
