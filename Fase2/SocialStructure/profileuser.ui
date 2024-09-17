@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ProfileUser</class>
+ <widget class="QMainWindow" name="ProfileUser">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>750</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(16, 16, 16);
+color: rgb(143, 136, 139);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="PerfilUsuarioW" name="w_perfilusuario" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>700</width>
+      <height>475</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="Reportes" name="w_reportes" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>700</width>
+      <height>475</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="Solicitudes" name="w_solicitudes" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>700</width>
+      <height>475</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="Publicaciones" name="w_publicaciones" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>700</width>
+      <height>475</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="Buscar" name="w_buscar" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>700</width>
+      <height>475</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>750</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
+    </property>
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <property name="toolTipsVisible">
+     <bool>false</bool>
+    </property>
+    <addaction name="actionProfile"/>
+    <addaction name="actionPosts"/>
+    <addaction name="actionFriend_Requests"/>
+    <addaction name="separator"/>
+    <addaction name="actionSearch"/>
+    <addaction name="actionReports"/>
+   </widget>
+   <widget class="QMenu" name="menuLogout">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <addaction name="actionLog_out"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <addaction name="actionInformation"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuAbout"/>
+   <addaction name="menuLogout"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>50</width>
+     <height>50</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="separator"/>
+   <addaction name="actionProfile"/>
+   <addaction name="actionPosts"/>
+   <addaction name="actionFriend_Requests"/>
+   <addaction name="actionSearch"/>
+   <addaction name="actionReports"/>
+   <addaction name="separator"/>
+   <addaction name="actionInformation"/>
+   <addaction name="actionLog_out"/>
+  </widget>
+  <action name="actionSearch">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/images/acercarse - copia.png</normaloff>
+     <activeon>:/images/images/acercarse - copia.png</activeon>:/images/images/acercarse - copia.png</iconset>
+   </property>
+   <property name="text">
+    <string>Search</string>
+   </property>
+  </action>
+  <action name="actionPosts">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/images/cuota.png</normaloff>:/images/images/cuota.png</iconset>
+   </property>
+   <property name="text">
+    <string>Posts</string>
+   </property>
+  </action>
+  <action name="actionFriend_Requests">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/images/usuarios.png</normaloff>:/images/images/usuarios.png</iconset>
+   </property>
+   <property name="text">
+    <string>Friend Requests</string>
+   </property>
+  </action>
+  <action name="actionReports">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/images/grafico.png</normaloff>:/images/images/grafico.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reports</string>
+   </property>
+  </action>
+  <action name="actionProfile">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/images/usuario (1).png</normaloff>:/images/images/usuario (1).png</iconset>
+   </property>
+   <property name="text">
+    <string>Profile</string>
+   </property>
+  </action>
+  <action name="actionLog_out">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/images/boton-de-encendido - copia.png</normaloff>:/images/images/boton-de-encendido - copia.png</iconset>
+   </property>
+   <property name="text">
+    <string>Log out</string>
+   </property>
+  </action>
+  <action name="actionInformation">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/images/luna.png</normaloff>:/images/images/luna.png</iconset>
+   </property>
+   <property name="text">
+    <string>Information</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Buscar</class>
+   <extends>QWidget</extends>
+   <header>buscar.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Publicaciones</class>
+   <extends>QWidget</extends>
+   <header>publicaciones.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Solicitudes</class>
+   <extends>QWidget</extends>
+   <header>solicitudes.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Reportes</class>
+   <extends>QWidget</extends>
+   <header>reportes.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PerfilUsuarioW</class>
+   <extends>QWidget</extends>
+   <header>perfilusuariow.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
+ <connections/>
+</ui>

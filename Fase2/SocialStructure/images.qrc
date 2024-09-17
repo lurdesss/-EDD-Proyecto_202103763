@@ -1,0 +1,100 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/acercarse - copia.png</file>
+        <file>images/acercarse.png</file>
+        <file>images/adjuntar - copia.png</file>
+        <file>images/adjuntar.png</file>
+        <file>images/alfiler - copia.png</file>
+        <file>images/alfiler (1) - copia.png</file>
+        <file>images/alfiler (1).png</file>
+        <file>images/alfiler.png</file>
+        <file>images/amor - copia.png</file>
+        <file>images/amor.png</file>
+        <file>images/anadir-imagen - copia.png</file>
+        <file>images/anadir-imagen.png</file>
+        <file>images/analitica - copia.png</file>
+        <file>images/analitica.png</file>
+        <file>images/aplicaciones - copia.png</file>
+        <file>images/aplicaciones (1) - copia.png</file>
+        <file>images/aplicaciones (1).png</file>
+        <file>images/aplicaciones.png</file>
+        <file>images/archivo - copia.png</file>
+        <file>images/archivo.png</file>
+        <file>images/borrar - copia.png</file>
+        <file>images/borrar (1) - copia.png</file>
+        <file>images/borrar (1).png</file>
+        <file>images/borrar.png</file>
+        <file>images/boton-de-encendido - copia.png</file>
+        <file>images/boton-de-encendido.png</file>
+        <file>images/camara - copia.png</file>
+        <file>images/camara.png</file>
+        <file>images/candado - copia.png</file>
+        <file>images/candado.png</file>
+        <file>images/carpeta - copia.png</file>
+        <file>images/carpeta (1) - copia.png</file>
+        <file>images/carpeta (1).png</file>
+        <file>images/carpeta.png</file>
+        <file>images/cerrar-con-llave - copia.png</file>
+        <file>images/cerrar-con-llave.png</file>
+        <file>images/chat - copia.png</file>
+        <file>images/chat (1) - copia.png</file>
+        <file>images/chat (1).png</file>
+        <file>images/chat (2) - copia.png</file>
+        <file>images/chat (2).png</file>
+        <file>images/chat.png</file>
+        <file>images/comprobado - copia.png</file>
+        <file>images/comprobado.png</file>
+        <file>images/computacion-en-la-nube - copia.png</file>
+        <file>images/computacion-en-la-nube.png</file>
+        <file>images/configuracion - copia.png</file>
+        <file>images/configuracion.png</file>
+        <file>images/copia-de-seguridad-de-archivos - copia.png</file>
+        <file>images/copia-de-seguridad-de-archivos.png</file>
+        <file>images/cuota - copia.png</file>
+        <file>images/cuota.png</file>
+        <file>images/desbloquear - copia.png</file>
+        <file>images/desbloquear.png</file>
+        <file>images/dialogo - copia.png</file>
+        <file>images/dialogo (1) - copia.png</file>
+        <file>images/dialogo (1).png</file>
+        <file>images/dialogo.png</file>
+        <file>images/editar - copia.png</file>
+        <file>images/editar.png</file>
+        <file>images/eliminar - copia.png</file>
+        <file>images/eliminar.png</file>
+        <file>images/enviar - copia.png</file>
+        <file>images/enviar.png</file>
+        <file>images/escaner - copia.png</file>
+        <file>images/escaner.png</file>
+        <file>images/esperando - copia.png</file>
+        <file>images/esperando.png</file>
+        <file>images/estrella - copia.png</file>
+        <file>images/estrella.png</file>
+        <file>images/frio - copia.png</file>
+        <file>images/frio.png</file>
+        <file>images/galeria - copia.png</file>
+        <file>images/galeria.png</file>
+        <file>images/grafico - copia.png</file>
+        <file>images/grafico.png</file>
+        <file>images/grupo (1) - copia.png</file>
+        <file>images/grupo (1).png</file>
+        <file>images/grupo.png</file>
+        <file>images/hacia-adelante.png</file>
+        <file>images/hacia-atras.png</file>
+        <file>images/imagen (1).png</file>
+        <file>images/imagen (2).png</file>
+        <file>images/imagen.png</file>
+        <file>images/ingresar.png</file>
+        <file>images/lapiz (1).png</file>
+        <file>images/lapiz.png</file>
+        <file>images/luna.png</file>
+        <file>images/macro.png</file>
+        <file>images/marcador.png</file>
+        <file>images/preguntas-mas-frecuentes.png</file>
+        <file>images/subir.png</file>
+        <file>images/usuario (1).png</file>
+        <file>images/usuario.png</file>
+        <file>images/usuarios.png</file>
+        <file>images/zoom.png</file>
+    </qresource>
+</RCC>

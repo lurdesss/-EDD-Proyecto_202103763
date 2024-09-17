@@ -59,4 +59,10 @@ node18 [label="miguel.rodriguez@example.com\nEl camino hacia el éxito está lle
 node18 -> node19 [label="siguiente"];
 node19 -> node18 [label="anterior"];
 node19 [label="sofia.gonzalez@example.com\nLas sonrisas sinceras son el mejor regalo que puedes dar.\nFecha: 18/08/2024\nHora: 09:30"];
+node19 -> node20 [label="siguiente"];
+node20 -> node19 [label="anterior"];
+node20 [label="calificacion.fase1@example.com\nPrimer día usando esta plataforma, ¡emocionado por lo que viene!\nFecha: 21/08/2024\nHora: 10:05"];
+node20 -> node21 [label="siguiente"];
+node21 -> node20 [label="anterior"];
+node21 [label="calificacion.fase1@example.com\nExplorando nuevas funcionalidades, la tecnología nunca deja de sorprenderme.\nFecha: 22/08/2024\nHora: 14:15"];
 }
