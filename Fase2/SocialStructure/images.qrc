@@ -96,5 +96,19 @@
         <file>images/usuario.png</file>
         <file>images/usuarios.png</file>
         <file>images/zoom.png</file>
+        <file>images/agregar-carpeta.png</file>
+        <file>images/agregar.png</file>
+        <file>images/info.png</file>
+        <file>images/genarnado.png</file>
+        <file>images/send.png</file>
+        <file>images/select.png</file>
+        <file>images/actualizar.png</file>
+        <file>images/senddd.png</file>
+        <file>images/commentario.png</file>
+        <file>images/commentario4.png</file>
+        <file>images/commentario3.png</file>
+        <file>images/commentario2.png</file>
+        <file>images/graphhhh.png</file>
+        <file>images/graphhh.png</file>
     </qresource>
 </RCC>

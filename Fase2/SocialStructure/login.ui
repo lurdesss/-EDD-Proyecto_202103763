@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>300</height>
+    <height>340</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,9 +21,9 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>30</y>
+      <y>20</y>
       <width>500</width>
-      <height>210</height>
+      <height>150</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -37,7 +37,7 @@ color: rgb(143, 136, 139);</string>
      <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
     <property name="flat">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="checkable">
      <bool>false</bool>
@@ -78,6 +78,9 @@ color: rgb(143, 136, 139);</string>
          <property name="inputMask">
           <string notr="true" extracomment="user"/>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignHCenter</set>
+         </property>
         </widget>
        </item>
       </layout>
@@ -111,50 +114,65 @@ color: rgb(143, 136, 139);</string>
          <property name="cursorPosition">
           <number>0</number>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
         </widget>
        </item>
       </layout>
      </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_login">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 193, 7);
-border-color: rgb(143, 136, 139);</string>
-       </property>
-       <property name="text">
-        <string>Iniciar sesión</string>
-       </property>
-       <property name="autoDefault">
-        <bool>false</bool>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-       <property name="flat">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_createacc">
-       <property name="styleSheet">
-        <string notr="true">color: rgb(88, 87, 74);</string>
-       </property>
-       <property name="text">
-        <string>¿No tienes una cuenta, deseas crear una?</string>
-       </property>
-       <property name="autoDefault">
-        <bool>true</bool>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-       <property name="flat">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="pushButton_login">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>190</y>
+      <width>476</width>
+      <height>45</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 193, 7);
+border-color: rgb(143, 136, 139);</string>
+    </property>
+    <property name="text">
+     <string>Iniciar sesión</string>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_createacc">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>250</y>
+      <width>476</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(88, 87, 74);</string>
+    </property>
+    <property name="text">
+     <string>¿No tienes una cuenta, deseas registrarte?</string>
+    </property>
+    <property name="autoDefault">
+     <bool>true</bool>
+    </property>
+    <property name="default">
+     <bool>true</bool>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

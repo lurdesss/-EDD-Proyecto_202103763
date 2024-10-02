@@ -9,34 +9,51 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    buscar.cpp \
+    abb.cpp \
+    avltree.cpp \
+    btree.cpp \
     globals.cpp \
+    listapublicaciones.cpp \
+    listasimple.cpp \
+    listasimpleamigos.cpp \
+    listasimplesolicitudes.cpp \
     main.cpp \
     login.cpp \
-    perfilusuariow.cpp \
+    matrix.cpp \
+    nodoamigos.cpp \
+    nodosolicitud.cpp \
+    pilasolicitudes.cpp \
+    profileadministrator.cpp \
     profileuser.cpp \
-    publicaciones.cpp \
-    reportes.cpp \
-    solicitudes.cpp
+    redsocial.cpp \
+    registrarusuario.cpp \
+    solicitudamistad.cpp
 
 HEADERS += \
-    buscar.h \
+    abb.h \
+    avltree.h \
+    btree.h \
     globals.h \
+    listapublicaciones.h \
+    listasimple.h \
+    listasimpleamigos.h \
+    listasimplesolicitudes.h \
     login.h \
-    perfilusuariow.h \
+    matrix.h \
+    nodoamigos.h \
+    nodosolicitud.h \
+    pilasolicitudes.h \
+    profileadministrator.h \
     profileuser.h \
-    publicaciones.h \
-    reportes.h \
-    solicitudes.h
+    redsocial.h \
+    registrarusuario.h \
+    solicitudamistad.h
 
 FORMS += \
-    buscar.ui \
     login.ui \
-    perfilusuariow.ui \
+    profileadministrator.ui \
     profileuser.ui \
-    publicaciones.ui \
-    reportes.ui \
-    solicitudes.ui
+    registrarusuario.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

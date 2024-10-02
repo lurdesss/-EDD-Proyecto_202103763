@@ -1,0 +1,4 @@
+#include "nodoamigos.h"
+
+NodoAmigos::NodoAmigos(const std::string& correo)
+    : correo(correo), siguiente(nullptr) {}

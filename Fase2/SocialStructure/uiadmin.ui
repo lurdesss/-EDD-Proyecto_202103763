@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>750</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(16, 16, 16);
+color: rgb(143, 136, 139);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>750</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMenuAdmin">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <addaction name="actionbuscar"/>
+    <addaction name="actioncargamasiva"/>
+    <addaction name="actionreportes"/>
+   </widget>
+   <addaction name="menuMenuAdmin"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>50</width>
+     <height>50</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionbuscar"/>
+   <addaction name="actioncargamasiva"/>
+   <addaction name="actionreportes"/>
+  </widget>
+  <action name="actionbuscar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/images/zoom.png</normaloff>:/images/images/zoom.png</iconset>
+   </property>
+   <property name="text">
+    <string>buscar</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actioncargamasiva">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/images/agregar-carpeta.png</normaloff>:/images/images/agregar-carpeta.png</iconset>
+   </property>
+   <property name="text">
+    <string>cargamasiva</string>
+   </property>
+  </action>
+  <action name="actionreportes">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/images/carpeta - copia.png</normaloff>:/images/images/carpeta - copia.png</iconset>
+   </property>
+   <property name="text">
+    <string>reportes</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
+ <connections/>
+</ui>
