@@ -29,8 +29,8 @@ Login::~Login()
 // try to login
 void Login::on_pushButton_login_clicked()
 {
-    QString adminEmail = "3312";  // Cambia esto a un correo de administrador real
-    QString adminPassword = "3312";  // Cambia esto a una contraseña de administrador real
+    QString adminEmail = "admin@gmail.com";  
+    QString adminPassword = "EDD2S2024";  
 
     QString username = ui->lineEdit_email->text();  // Obtener el email ingresado
     QString password = ui->lineEdit_password->text();  // Obtener la contraseña ingresada
