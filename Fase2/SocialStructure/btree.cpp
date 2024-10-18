@@ -1,4 +1,4 @@
-#include "BTree.h"
+#include "btree.h"
 
 void BTree::insert(Comentario* val) {
     Comentario* newval = nullptr;

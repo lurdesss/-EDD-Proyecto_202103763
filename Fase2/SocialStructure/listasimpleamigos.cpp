@@ -1,4 +1,4 @@
-#include "ListaSimpleAmigos.h"
+#include "listasimpleamigos.h"
 #include <iostream>
 
 ListaSimpleAmigos::ListaSimpleAmigos() : cabeza(nullptr) {}

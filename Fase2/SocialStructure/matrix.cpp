@@ -2,7 +2,7 @@
 #include <fstream>
 #include <cstdlib>  // Para system()
 #include <iomanip>
-#include "ListaSimpleAmigos.h"
+#include "listasimpleamigos.h"
 
 Node::Node(int i, int j, bool value, string nombrei, string nombrej)
     : i(i), j(j), value(value), nombrei(nombrei), nombrej(nombrej) {}
