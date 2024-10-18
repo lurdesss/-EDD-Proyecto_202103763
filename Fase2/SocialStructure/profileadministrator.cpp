@@ -13,7 +13,7 @@
 #include <QSignalMapper>
 
 using json = nlohmann::json;
-QString rutaBase = "/home/lurdes/Escritorio/datastructures2024/-EDD-Proyecto_202103763/Fase3/SocialStructure/";
+QString rutaBase = "/home/lurdes/Escritorio/datastructures/-EDD-Proyecto_202103763/Fase2/SocialStructure/";
 
 ProfileAdministrator::ProfileAdministrator(QWidget *parent)
     : QMainWindow(parent)
@@ -117,9 +117,8 @@ void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
     arbolUsuariosGeneral->generateDot("arbol_avl.dot");
 
     // Generar la ruta completa para el archivo .dot y la imagen .png
-    QString rutaSalida = "salida/";
-    QString rutaDot = rutaBase + rutaSalida + "arbol_avl.dot";
-    QString rutaPng = rutaBase + rutaSalida + "arbol_avl.png";
+    QString rutaDot = rutaBase + "salida/arbol_avl.dot";
+    QString rutaPng = rutaBase + "salida/arbol_avl.png";
 
     // Ejecutar el comando para generar la imagen
     QString comando = "dot -Tpng " + rutaDot + " -o " + rutaPng + " 2>&1";
