@@ -6,13 +6,14 @@
 #include <fstream>
 #include "nlohmann/json.hpp"
 #include <QDir>  // Para manejar rutas
-#include <QFile> 
+#include <QFile>
 #include <QImage>       // Para cargar la imagen
-#include <QPixmap> 
+#include <QPixmap>
 #include <QTimer>
 #include <QSignalMapper>
 
 using json = nlohmann::json;
+QString rutaBase = "/home/lurdes/Escritorio/datastructures2024/-EDD-Proyecto_202103763/Fase3/SocialStructure/";
 
 ProfileAdministrator::ProfileAdministrator(QWidget *parent)
     : QMainWindow(parent)
@@ -22,8 +23,8 @@ ProfileAdministrator::ProfileAdministrator(QWidget *parent)
     ui->widget_buscarsi->show();
     ui->widget_cargasi->hide();
     ui->widget_reportessi->hide();
-    
-    
+
+
 }
 
 ProfileAdministrator::~ProfileAdministrator()
@@ -37,8 +38,8 @@ void ProfileAdministrator::on_actioncargamasiva_triggered()
     ui->widget_buscarsi->hide();
     ui->widget_cargasi->show();
     ui->widget_reportessi->hide();
-    
-    
+
+
 }
 
 // Nueva función para recibir el árbol desde el login
@@ -67,8 +68,7 @@ void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
     }
 
     // Construir la ruta completa: carpeta 'files' dentro del proyecto
-    QString rutaBase = QDir::currentPath() + "../../../files/";
-    QString rutaCompleta = rutaBase + nombreArchivo;
+    QString rutaCompleta = rutaBase + "files/" + nombreArchivo;
 
     // Abrir el archivo JSON usando ifstream
     std::ifstream file(rutaCompleta.toStdString());
@@ -117,9 +117,9 @@ void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
     arbolUsuariosGeneral->generateDot("arbol_avl.dot");
 
     // Generar la ruta completa para el archivo .dot y la imagen .png
-    QString rutaSalida = QDir::currentPath() + "../../../salida/";
-    QString rutaDot = rutaSalida + "arbol_avl.dot";
-    QString rutaPng = rutaSalida + "arbol_avl.png";
+    QString rutaSalida = "salida/";
+    QString rutaDot = rutaBase + rutaSalida + "arbol_avl.dot";
+    QString rutaPng = rutaBase + rutaSalida + "arbol_avl.png";
 
     // Ejecutar el comando para generar la imagen
     QString comando = "dot -Tpng " + rutaDot + " -o " + rutaPng + " 2>&1";
@@ -160,8 +160,7 @@ void ProfileAdministrator::on_pushButton_cargasolicitudes_clicked()
     }
 
     // Construir la ruta completa: carpeta 'files' dentro del proyecto
-    QString rutaBase = QDir::currentPath() + "../../../files/";
-    QString rutaCompleta = rutaBase + nombreArchivo;     // Concatenar la ruta base con el nombre del archivo
+    QString rutaCompleta = rutaBase + "files/" + nombreArchivo;     // Concatenar la ruta base con el nombre del archivo
 
     // Abrir el archivo JSON usando ifstream
     std::ifstream file(rutaCompleta.toStdString());
@@ -211,8 +210,7 @@ void ProfileAdministrator::on_pushButton_cargapublicaciones_clicked()
     }
 
     // Construir la ruta completa: carpeta 'files' dentro del proyecto
-    QString rutaBase = QDir::currentPath() + "../../../files/";
-    QString rutaCompleta = rutaBase + nombreArchivo;  // Concatenar la ruta base con el nombre del archivo
+    QString rutaCompleta = rutaBase + "files/" + nombreArchivo;  // Concatenar la ruta base con el nombre del archivo
 
     // Abrir el archivo JSON usando ifstream
     std::ifstream file(rutaCompleta.toStdString());
@@ -245,7 +243,7 @@ void ProfileAdministrator::on_pushButton_cargapublicaciones_clicked()
         listaDoblePublicaciones->mostrarPublicaciones();
 
         Node* NodoTmp = arbolUsuariosGeneral->preordenBuscarCorreoNodo(arbolUsuariosGeneral->raiz, correo);
-        
+
         Publicaciones* publi = new Publicaciones(correo, contenido, fecha, hora);
 
 
@@ -272,7 +270,7 @@ void ProfileAdministrator::on_pushButton_cargapublicaciones_clicked()
 
                 Comentario* come = new Comentario(correoComentario,textoComentario,fechaComentario,horaComentario);
                 NodoTmp->abbcadausr->raiz->nodoAB->insert(come);
-            
+
 
             }
         }
@@ -290,7 +288,7 @@ void ProfileAdministrator::on_pushButton_cargapublicaciones_clicked()
     listaDoblePublicaciones->generateDot("publicaciones.dot");
     listaDoblePublicaciones->renderGraphviz("publicaciones.dot", "publicaciones.png");
 
-    
+
 
 }
 
@@ -300,8 +298,8 @@ void ProfileAdministrator::on_actionbuscar_triggered()
     ui->widget_buscarsi->show();
     ui->widget_cargasi->hide();
     ui->widget_reportessi->hide();
-    
-    
+
+
 }
 
 
@@ -318,8 +316,8 @@ void ProfileAdministrator::on_actionreportes_triggered()
     ui->widget_buscarsi->hide();
     ui->widget_cargasi->hide();
     ui->widget_reportessi->show();
-    
-    
+
+
 
     // reportes
     ui->label_tituloavlsi->hide();
@@ -331,13 +329,15 @@ void ProfileAdministrator::on_actionreportes_triggered()
 
 
 void ProfileAdministrator::on_pushButton_reportesfromadminsi_clicked()
-{   
+{
     ui->label_titulolistasi->hide();
     ui->label_forlistadepostssi->hide();
     ui->label_tituloavlsi->show();
     ui->label_foradminavltreesi->show();
     // Definir la ruta completa de la imagen
-    QString rutaImagen = QDir::currentPath() + "../../../salida/arbol_avl.png";
+
+
+    QString rutaImagen = rutaBase + "salida/arbol_avl.png";
 
     // Verificar si la imagen existe
     if (!QFile::exists(rutaImagen)) {
@@ -363,12 +363,12 @@ void ProfileAdministrator::on_pushButton_reportesfromadminsi_clicked()
 
 
 void ProfileAdministrator::on_pushButton_searchemail_admin_clicked()
-{   
+{
     QString userfound = ui->lineEdit_searchemail_admin->text();
 
     Usuario* usuarioEncontrado = arbolUsuariosGeneral->preordenBuscarCorreo(arbolUsuariosGeneral->raiz, userfound);
     qDebug() << usuarioEncontrado;
-    
+
     if(usuarioEncontrado != nullptr){
         qDebug() << "Usuario encontrado";
         qDebug() << "Nombre: " << usuarioEncontrado->nombres;
@@ -376,11 +376,11 @@ void ProfileAdministrator::on_pushButton_searchemail_admin_clicked()
         qDebug() << "Correo: " << usuarioEncontrado->correo;
         qDebug() << "Contraseña: " << usuarioEncontrado->contrasena;
         qDebug() << "Fecha de nacimiento: " << usuarioEncontrado->fechaNacimiento;
-        
+
         // Limpiar el contenido del tableWidget antes de agregar los datos del nuevo usuario
         ui->tableWidget_fromsearch_admin->clearContents();
         ui->tableWidget_fromsearch_admin->setRowCount(1);  // Solo se mostrará una fila
-        
+
         // Agregar datos en las columnas correspondientes
         ui->tableWidget_fromsearch_admin->setItem(0, 0, new QTableWidgetItem(usuarioEncontrado->nombres));
         ui->tableWidget_fromsearch_admin->setItem(0, 1, new QTableWidgetItem(usuarioEncontrado->apellidos));
@@ -403,10 +403,10 @@ void ProfileAdministrator::on_pushButton_searchemail_admin_clicked()
             // eliminarUsuario(usuarioEncontrado);
         });
         ui->tableWidget_fromsearch_admin->setCellWidget(0, 5, deleteButton);  // Posición 5 para "Eliminar"
-        
+
     } else {
         qDebug() << "Usuario no encontrado";
-        
+
         // Limpiar el contenido si no se encuentra ningún usuario
         ui->tableWidget_fromsearch_admin->clearContents();
         ui->tableWidget_fromsearch_admin->setRowCount(0);
@@ -444,7 +444,7 @@ void ProfileAdministrator::on_pushButton_ordercaseaplicar_clicked() {
 
     // Llamar a la función para agregar botones después de llenar la tabla
     addButtonsToTable();
-    
+
     // Mostrar un mensaje sobre la opción seleccionada
     QMessageBox::information(this, "Opción Seleccionada", resultado);
 }
@@ -473,7 +473,7 @@ void ProfileAdministrator::addButtonsToTable() {
             // Utilizar un temporizador para evitar conflictos en la tabla
             QTimer::singleShot(0, this, [this, rowToDelete]() {
                 ui->tableWidget_fromsearch_admin->removeRow(rowToDelete);
-                
+
                 // Volver a agregar los botones después de eliminar
                 addButtonsToTable();
             });
@@ -482,12 +482,12 @@ void ProfileAdministrator::addButtonsToTable() {
 }
 
 void ProfileAdministrator::on_pushButton_reportesfromadminsi_2_clicked()
-{   
+{
     ui->label_tituloavlsi->hide();
     ui->label_foradminavltreesi->hide();
     ui->label_titulolistasi->show();
     ui->label_forlistadepostssi->show();
-    QString rutaimgposts = QDir::currentPath() + "../../../salida/publicaciones.png";
+    QString rutaimgposts = rutaBase + "salida/publicaciones.png";
     // Verificar si la imagen existe
     if (!QFile::exists(rutaimgposts)) {
         QMessageBox::warning(this, "Error", "No se encontró la imagen en la ruta: " + rutaimgposts);
