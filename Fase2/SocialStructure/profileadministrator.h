@@ -6,6 +6,11 @@
 #include "abb.h"
 #include "btree.h"
 
+// include RedSocial .h
+#include "listasimple.h"
+#include "pilasolicitudes.h"
+#include "listasimplesolicitudes.h"
+
 #include <QMainWindow>
 
 namespace Ui {
@@ -19,8 +24,10 @@ class ProfileAdministrator : public QMainWindow
 public:
     explicit ProfileAdministrator(QWidget *parent = nullptr);
     ~ProfileAdministrator();
-    void cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi);
+    void cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol);
     void addButtonsToTable();
+
+    ListaSimple listaSolicitudesEnviadas;
 
 private slots:
     void on_actionclosesesionadmin_triggered();
@@ -51,6 +58,8 @@ private:
     ListaDePublicaciones* listaDoblePublicaciones;
     ABB* abbPublicaciones;
     BTree* btreeComentarios;
+    PilaSolicitudes* pilaSolicitudes;
+    ListaSimpleSolicitudes* listaSolicitudes;
 };
 
 #endif // PROFILEADMINISTRATOR_H

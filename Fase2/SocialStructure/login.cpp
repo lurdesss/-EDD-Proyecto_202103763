@@ -6,6 +6,11 @@
 #include "abb.h"
 #include "btree.h"
 
+// include listasimple pila y grafo
+#include "pilasolicitudes.h"
+#include "listasimplesolicitudes.h"
+#include "listasimple.h" // solo lista simple
+
 AVLTree* arbolUsuariosGeneral = new AVLTree();
 ListaDePublicaciones* listaDoblePublicaciones = new ListaDePublicaciones();
 ABB* abbPublicaciones = new ABB();
@@ -13,6 +18,8 @@ BTree* btreeComentarios = new BTree();
 // pila
 // listasimple
 // grafo
+PilaSolicitudes* pilaSolicitudes = new PilaSolicitudes();
+ListaSimpleSolicitudes* listaSolicitudes = new ListaSimpleSolicitudes();
 
 Usuario* usuarioensesion;
 
@@ -57,7 +64,7 @@ void Login::on_pushButton_login_clicked()
         hide();  // Oculta la ventana de login
         profileAdministrator = new ProfileAdministrator();  // Crea la ventana de perfil del administrador
         profileAdministrator->show();
-        profileAdministrator->cargaArchivo(arbolUsuariosGeneral, listaDoblePublicaciones, abbPublicaciones, btreeComentarios);  // Carga datos del árbol
+        profileAdministrator->cargaArchivo(arbolUsuariosGeneral, listaDoblePublicaciones, abbPublicaciones, btreeComentarios, pilaSolicitudes, listaSolicitudes);  // Carga datos del árbol
     }
     // Verifica si se encontró un usuario
     else if (usuarioEncontrado != nullptr) {
@@ -79,6 +86,10 @@ void Login::on_pushButton_login_clicked()
         ProfileUser *profileUser = new ProfileUser(nullptr, nombresi, apellidosi, emailsi, passwordsi, cum);
         profileUser->show();
         profileUser->cargaData(arbolUsuariosGeneral, listaDoblePublicaciones, abbPublicaciones, btreeComentarios);
+
+        // pasa como parametros, estructuras inicializadas
+        ListaSimple listaSimple;
+        listaSimple.carga(pilaSolicitudes, listaSolicitudes);
     }
     // Si no se encuentra el usuario o las credenciales son incorrectas
     else {

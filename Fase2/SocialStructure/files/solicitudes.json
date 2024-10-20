@@ -32,7 +32,7 @@
   {
     "emisor": "mr@example.com",
     "receptor": "f2@gmail.com",
-    "estado": "ACEPTADA"
+    "estado": "PENDIENTE"
   },
   {
     "emisor": "f2@gmail.com",

@@ -12,8 +12,6 @@ private:
 
 
 public:
-    PilaSolicitudes pilaSolicitudes;
-    ListaSimpleSolicitudes listaSolicitudes;
     ListaSimple();
     ~ListaSimple();
 
@@ -24,6 +22,14 @@ public:
     void imprimirLista() const;
     void buscarPorReceptor(const std::string& receptor);
     void buscarPorEmisor(const std::string& emisor);
+
+    //carga
+    void carga(PilaSolicitudes* pilasolsi, ListaSimpleSolicitudes* listasolsi);
+
+private:
+    PilaSolicitudes* pilaSolicitudes;
+    ListaSimpleSolicitudes* listaSolicitudes;
+
 };
 
 #endif // LISTASIMPLE_H

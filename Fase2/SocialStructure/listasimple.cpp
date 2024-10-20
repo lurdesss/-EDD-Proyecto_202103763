@@ -11,6 +11,11 @@ ListaSimple::~ListaSimple() {
     }
 }
 
+void ListaSimple::carga(PilaSolicitudes* pilasolsi, ListaSimpleSolicitudes* listasolsi){
+    this->pilaSolicitudes = pilasolsi;
+    this->listaSolicitudes = listasolsi;
+}
+
 void ListaSimple::agregarSolicitud(const std::string& emisor, const std::string& receptor, const std::string& estado) {
     SolicitudAmistad* nuevaSolicitud = new SolicitudAmistad(emisor, receptor, estado);
     nuevaSolicitud->siguiente = cabeza;
@@ -79,7 +84,7 @@ void ListaSimple::buscarPorReceptor(const std::string& receptor) {
     SolicitudAmistad* actual = cabeza;
     while (actual != nullptr) {
         if (actual->receptor == receptor) {
-            pilaSolicitudes.pushSolicitud(actual->emisor, actual->receptor, actual->estado);
+            pilaSolicitudes->pushSolicitud(actual->emisor, actual->receptor, actual->estado);
         }
         actual = actual->siguiente;
     }
@@ -89,7 +94,7 @@ void ListaSimple::buscarPorEmisor(const std::string& emisor) {
     SolicitudAmistad* actual = cabeza;
     while (actual != nullptr) {
         if (actual->emisor == emisor) {
-            listaSolicitudes.agregarSolicitud(actual->emisor, actual->receptor, actual->estado);
+            listaSolicitudes->agregarSolicitud(actual->emisor, actual->receptor, actual->estado);
         }
         actual = actual->siguiente;
     }

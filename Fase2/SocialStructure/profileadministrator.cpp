@@ -44,11 +44,13 @@ void ProfileAdministrator::on_actioncargamasiva_triggered()
 }
 
 // Nueva función para recibir el árbol desde el login
-void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi) {
+void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol) {
     this->arbolUsuariosGeneral = arbol;  // Asignar el árbol
     this->listaDoblePublicaciones = lista;  // Asignar la lista de publicaciones
     this->abbPublicaciones = abbsi; // Asignar la lista de publicaciones
     this->btreeComentarios = btreesi; // Asignar la lista de comentarios de publicaciones
+    this->pilaSolicitudes = pilasol; // Asigna a la pila de solicitudes
+    this->listaSolicitudes = listasol;
 }
 
 void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
@@ -195,6 +197,46 @@ void ProfileAdministrator::on_pushButton_cargasolicitudes_clicked()
         qDebug() << "Receptor:" << receptor;
         qDebug() << "Estado:" << estado;
         qDebug() << "-------------------------------";
+
+        // Verificar si ya existe una solicitud aceptada entre emisor y receptor o viceversa
+        bool existeAceptada = listaSolicitudesEnviadas.existeSolicitudAceptada(emisor.toStdString(), receptor.toStdString()) ||
+                              listaSolicitudesEnviadas.existeSolicitudAceptada(emisor.toStdString(), receptor.toStdString());
+
+
+        // Verificar si ya existe una solicitud pendiente del emisor al receptor o viceversa
+        bool existePendiente = listaSolicitudesEnviadas.existeSolicitudPendiente(emisor.toStdString(), receptor.toStdString()) ||
+                               listaSolicitudesEnviadas.existeSolicitudPendiente(emisor.toStdString(), receptor.toStdString());
+
+
+        if (estado == "PENDIENTE") {
+            if (existeAceptada) {
+                // Si ya hay una solicitud aceptada, se elimina cualquier solicitud pendiente existente
+                listaSolicitudesEnviadas.eliminarSolicitud(emisor.toStdString(), receptor.toStdString(), "PENDIENTE");
+                listaSolicitudesEnviadas.eliminarSolicitud(receptor.toStdString(), emisor.toStdString(), "PENDIENTE");
+            } else if (!existePendiente) {
+                // Si no hay una solicitud pendiente, se agrega la solicitud pendiente
+                listaSolicitudesEnviadas.agregarSolicitud(emisor.toStdString(), receptor.toStdString(), estado.toStdString());
+
+                cout << "La solicitud de " << emisor.toStdString() << " a " << receptor.toStdString() << " ha sido añadida en estado: PENDIENTE" << endl;
+            }
+        } else if (estado == "ACEPTADA") {
+            if (existePendiente) {
+                // Si existe una solicitud pendiente, se elimina y se cambia el estado a "ACEPTADA"
+                listaSolicitudesEnviadas.eliminarSolicitud(emisor.toStdString(), receptor.toStdString(), "PENDIENTE");
+                listaSolicitudesEnviadas.eliminarSolicitud(receptor.toStdString(), emisor.toStdString(), "PENDIENTE");
+                cout << "La solicitud PENDIENTE de " << emisor.toStdString() << " a " << receptor.toStdString() << " ha sido añadida A: ACEPTADA CAMBIO" << endl;
+                // se debe añadir a matriz
+            }
+            if (!existeAceptada) { // no deberia negarse ?
+                // Inserta en la matriz de amigos y agrega la solicitud aceptada
+                cout << "La solicitud de " << emisor.toStdString() << " a " << receptor.toStdString() << " ha sido añadida con estado: ACEPTADA DEFECTO" << endl;
+                // bool valor = true;
+                // int emisorId = listaUsuarios->getId(emisor);
+                // int receptorId = listaUsuarios->getId(receptor);
+                // matrizAmigos.insert(emisorId, receptorId, valor, emisor, receptor);
+                // matrizAmigos.insert(receptorId, emisorId, valor, receptor, emisor);
+            }
+        }
     }
 
 }
