@@ -1,6 +1,3 @@
 digraph ABB {
 	node [shape=egg];
-"21/08/2024" [label="Fecha: 21/08/2024\nContenido: Primer día usando esta plataforma, ¡emocionado por lo que viene!"];
-"21/08/2024" -> "22/08/2024" [label="right"];
-"22/08/2024" [label="Fecha: 22/08/2024\nContenido: Explorando nuevas funcionalidades, la tecnología nunca deja de sorprenderme."];
 }

@@ -7,6 +7,8 @@
 #include <QDir>  // Para manejar rutas
 
 
+QString rutaBaseSi = "/home/lurdes/Escritorio/datastructures/-EDD-Proyecto_202103763/Fase2/SocialStructure/";
+
 RegistrarUsuario::RegistrarUsuario(AVLTree* arbolUsuarios, QWidget *parent)
     : QMainWindow(parent), arbolUsuariosGeneral(arbolUsuarios)
     , ui(new Ui::RegistrarUsuario)
@@ -89,7 +91,7 @@ void RegistrarUsuario::on_pushButton_savenewuser_clicked()
             arbolUsuariosGeneral->generateDot("arbol_avl.dot");
 
             // Generar la ruta completa para el archivo .dot y la imagen .png
-            QString rutaSalida = QDir::currentPath() + "../../../salida/";
+            QString rutaSalida = rutaBaseSi + "salida/";
             QString rutaDot = rutaSalida + "arbol_avl.dot";
             QString rutaPng = rutaSalida + "arbol_avl.png";
 

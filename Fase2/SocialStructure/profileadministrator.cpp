@@ -14,6 +14,8 @@
 
 using json = nlohmann::json;
 
+QString rutaBase = "/home/lurdes/Escritorio/datastructures/-EDD-Proyecto_202103763/Fase2/SocialStructure/";
+
 ProfileAdministrator::ProfileAdministrator(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::ProfileAdministrator)
@@ -67,8 +69,8 @@ void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
     }
 
     // Construir la ruta completa: carpeta 'files' dentro del proyecto
-    QString rutaBase = QDir::currentPath() + "../../../files/";
-    QString rutaCompleta = rutaBase + nombreArchivo;
+    QString relative = "/files/";
+    QString rutaCompleta = rutaBase + relative + nombreArchivo;
 
     // Abrir el archivo JSON usando ifstream
     std::ifstream file(rutaCompleta.toStdString());
@@ -117,7 +119,7 @@ void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
     arbolUsuariosGeneral->generateDot("arbol_avl.dot");
 
     // Generar la ruta completa para el archivo .dot y la imagen .png
-    QString rutaSalida = QDir::currentPath() + "../../../salida/";
+    QString rutaSalida = rutaBase + "salida/";
     QString rutaDot = rutaSalida + "arbol_avl.dot";
     QString rutaPng = rutaSalida + "arbol_avl.png";
 
@@ -160,8 +162,8 @@ void ProfileAdministrator::on_pushButton_cargasolicitudes_clicked()
     }
 
     // Construir la ruta completa: carpeta 'files' dentro del proyecto
-    QString rutaBase = QDir::currentPath() + "../../../files/";
-    QString rutaCompleta = rutaBase + nombreArchivo;     // Concatenar la ruta base con el nombre del archivo
+    QString relative = "files/";
+    QString rutaCompleta = rutaBase + relative + nombreArchivo;     // Concatenar la ruta base con el nombre del archivo
 
     // Abrir el archivo JSON usando ifstream
     std::ifstream file(rutaCompleta.toStdString());
@@ -211,8 +213,8 @@ void ProfileAdministrator::on_pushButton_cargapublicaciones_clicked()
     }
 
     // Construir la ruta completa: carpeta 'files' dentro del proyecto
-    QString rutaBase = QDir::currentPath() + "../../../files/";
-    QString rutaCompleta = rutaBase + nombreArchivo;  // Concatenar la ruta base con el nombre del archivo
+    QString relative = "files/";
+    QString rutaCompleta = rutaBase + relative + nombreArchivo;  // Concatenar la ruta base con el nombre del archivo
 
     // Abrir el archivo JSON usando ifstream
     std::ifstream file(rutaCompleta.toStdString());
@@ -337,7 +339,7 @@ void ProfileAdministrator::on_pushButton_reportesfromadminsi_clicked()
     ui->label_tituloavlsi->show();
     ui->label_foradminavltreesi->show();
     // Definir la ruta completa de la imagen
-    QString rutaImagen = QDir::currentPath() + "../../../salida/arbol_avl.png";
+    QString rutaImagen = rutaBase + "salida/arbol_avl.png";
 
     // Verificar si la imagen existe
     if (!QFile::exists(rutaImagen)) {
@@ -487,7 +489,7 @@ void ProfileAdministrator::on_pushButton_reportesfromadminsi_2_clicked()
     ui->label_foradminavltreesi->hide();
     ui->label_titulolistasi->show();
     ui->label_forlistadepostssi->show();
-    QString rutaimgposts = QDir::currentPath() + "../../../salida/publicaciones.png";
+    QString rutaimgposts = rutaBase + "salida/publicaciones.png";
     // Verificar si la imagen existe
     if (!QFile::exists(rutaimgposts)) {
         QMessageBox::warning(this, "Error", "No se encontró la imagen en la ruta: " + rutaimgposts);
