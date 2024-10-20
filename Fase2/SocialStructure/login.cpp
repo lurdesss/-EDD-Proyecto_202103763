@@ -10,6 +10,9 @@ AVLTree* arbolUsuariosGeneral = new AVLTree();
 ListaDePublicaciones* listaDoblePublicaciones = new ListaDePublicaciones();
 ABB* abbPublicaciones = new ABB();
 BTree* btreeComentarios = new BTree();
+// pila
+// listasimple
+// grafo
 
 Usuario* usuarioensesion;
 
