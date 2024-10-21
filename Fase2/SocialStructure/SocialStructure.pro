@@ -12,6 +12,7 @@ SOURCES += \
     abb.cpp \
     avltree.cpp \
     btree.cpp \
+    contador.cpp \
     globals.cpp \
     listapublicaciones.cpp \
     listasimple.cpp \
@@ -27,12 +28,14 @@ SOURCES += \
     profileuser.cpp \
     redsocial.cpp \
     registrarusuario.cpp \
+    relationlist.cpp \
     solicitudamistad.cpp
 
 HEADERS += \
     abb.h \
     avltree.h \
     btree.h \
+    contador.h \
     globals.h \
     listapublicaciones.h \
     listasimple.h \
@@ -47,6 +50,7 @@ HEADERS += \
     profileuser.h \
     redsocial.h \
     registrarusuario.h \
+    relationlist.h \
     solicitudamistad.h
 
 FORMS += \

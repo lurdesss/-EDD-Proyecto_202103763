@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include "globals.h"
 #include <QDir>  // Para manejar rutas
+#include "contador.h"
 
 
 QString rutaBaseSi = "/home/lurdes/Escritorio/datastructures/-EDD-Proyecto_202103763/Fase2/SocialStructure/";
@@ -77,10 +78,12 @@ void RegistrarUsuario::on_pushButton_savenewuser_clicked()
         Usuario* user = arbolUsuariosGeneral->buscarPorCorreo(globalEmail);
         if (user == nullptr) {
             // caso de registro
-            Usuario* nuevoUsuario = new Usuario(globalName, globalLastname, globalDate, globalEmail, globalPassword);
+            int nuevoId = contadorId++;
+            Usuario* nuevoUsuario = new Usuario( nuevoId,globalName, globalLastname, globalDate, globalEmail, globalPassword);
             arbolUsuariosGeneral->add(nuevoUsuario);
             // Opcional: Mostrar un mensaje de confirmación o realizar otras acciones
             qDebug() << "DATOS DE USUARIO NUEVO:";
+            qDebug() << "Id usuario: " << nuevoId;
             qDebug() << "Nombre:" << globalName;
             qDebug() << "Apellido:" << globalLastname;
             qDebug() << "Fecha:" << globalDate;

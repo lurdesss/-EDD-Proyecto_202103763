@@ -124,8 +124,8 @@ void ABB::generateDotForABB(NodeABB* tmp, std::ofstream& outFile)
     if (tmp != nullptr)
     {
         // Crear un nodo en el archivo DOT con el contenido de la publicación
-        outFile << "\"" << tmp << "\" [label=\"Fecha: " << tmp->publi->fecha.toStdString() 
-                << "\\nContenido: " << tmp->publi->contenido.toStdString() 
+        outFile << "\"" << tmp << "\" [label=\"Fecha: " << tmp->publi->fecha.toStdString()
+                << "\\nContenido: " << tmp->publi->contenido.toStdString()
                 << "\\nHora: " << tmp->publi->hora.toStdString() << "\"];\n";
 
         // Recorrer el subárbol izquierdo, si existe
@@ -173,21 +173,21 @@ void ABB::writeDot(NodeABB* tmp, std::ofstream& archivo)
     if (tmp != nullptr)
     {
         // Etiqueta del nodo con la fecha y contenido
-        archivo << "\"" << tmp->publi->fecha.toStdString() << "\" [label=\"Fecha: " 
-                << tmp->publi->fecha.toStdString() << "\\nContenido: " 
+        archivo << "\"" << tmp->publi->fecha.toStdString() << "\" [label=\"Fecha: "
+                << tmp->publi->fecha.toStdString() << "\\nContenido: "
                 << tmp->publi->contenido.toStdString() << "\"];\n";
 
         // Conexión hacia el hijo izquierdo si existe
         if (tmp->left != nullptr)
         {
-            archivo << "\"" << tmp->publi->fecha.toStdString() << "\" -> \"" 
+            archivo << "\"" << tmp->publi->fecha.toStdString() << "\" -> \""
                     << tmp->left->publi->fecha.toStdString() << "\" [label=\"left\"];\n";
         }
 
         // Conexión hacia el hijo derecho si existe
         if (tmp->right != nullptr)
         {
-            archivo << "\"" << tmp->publi->fecha.toStdString() << "\" -> \"" 
+            archivo << "\"" << tmp->publi->fecha.toStdString() << "\" -> \""
                     << tmp->right->publi->fecha.toStdString() << "\" [label=\"right\"];\n";
         }
 
@@ -196,5 +196,4 @@ void ABB::writeDot(NodeABB* tmp, std::ofstream& archivo)
         writeDot(tmp->right, archivo);
     }
 }
-
 

@@ -10,6 +10,7 @@
 #include "listasimple.h"
 #include "pilasolicitudes.h"
 #include "listasimplesolicitudes.h"
+#include "relationlist.h"
 
 #include <QMainWindow>
 
@@ -24,7 +25,7 @@ class ProfileAdministrator : public QMainWindow
 public:
     explicit ProfileAdministrator(QWidget *parent = nullptr);
     ~ProfileAdministrator();
-    void cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol);
+    void cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst);
     void addButtonsToTable();
 
     ListaSimple listaSolicitudesEnviadas;
@@ -60,6 +61,7 @@ private:
     BTree* btreeComentarios;
     PilaSolicitudes* pilaSolicitudes;
     ListaSimpleSolicitudes* listaSolicitudes;
+    ListOfList* listOfList;
 };
 
 #endif // PROFILEADMINISTRATOR_H

@@ -1,0 +1,7 @@
+digraph G{
+rankdir=LR;
+Juan -> Fase2;
+Fase2 -> Jose;
+Fase2 -> Miguel;
+Fase2 -> Sofia;
+}

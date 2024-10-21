@@ -10,15 +10,18 @@
 
 class Usuario {
 public:
+    int id;
     QString nombres;
     QString apellidos;
     QString fechaNacimiento;
     QString correo;
     QString contrasena;
 
-    Usuario(QString nombres_, QString apellidos_, QString fechaNacimiento_, QString correo_, QString contrasena_)
-        : nombres(nombres_), apellidos(apellidos_), fechaNacimiento(fechaNacimiento_), correo(correo_), contrasena(contrasena_) {}
+    // Constructor actualizado
+    Usuario(int id_, QString nombres_, QString apellidos_, QString fechaNacimiento_, QString correo_, QString contrasena_)
+        : id(id_), nombres(nombres_), apellidos(apellidos_), fechaNacimiento(fechaNacimiento_), correo(correo_), contrasena(contrasena_) {}
 };
+
 
 class Node {
 public:

@@ -11,6 +11,7 @@
 #include <QPixmap> 
 #include <QTimer>
 #include <QSignalMapper>
+#include "contador.h"
 
 using json = nlohmann::json;
 
@@ -44,13 +45,14 @@ void ProfileAdministrator::on_actioncargamasiva_triggered()
 }
 
 // Nueva función para recibir el árbol desde el login
-void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol) {
+void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst) {
     this->arbolUsuariosGeneral = arbol;  // Asignar el árbol
     this->listaDoblePublicaciones = lista;  // Asignar la lista de publicaciones
     this->abbPublicaciones = abbsi; // Asignar la lista de publicaciones
     this->btreeComentarios = btreesi; // Asignar la lista de comentarios de publicaciones
     this->pilaSolicitudes = pilasol; // Asigna a la pila de solicitudes
-    this->listaSolicitudes = listasol;
+    this->listaSolicitudes = listasol; // Asigna a la lista de solicitudes
+    this->listOfList = listooflst; // Asigna a la lista de soicitudes
 }
 
 void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
@@ -102,7 +104,8 @@ void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
         QString contrasena = QString::fromStdString(user["contraseña"].get<std::string>());
 
         // Crear un nuevo usuario
-        Usuario* nuevoUsuario = new Usuario(nombres, apellidos, fechaNacimiento, correo, contrasena);
+        int nuevoId = contadorId++;
+        Usuario* nuevoUsuario = new Usuario(nuevoId, nombres, apellidos, fechaNacimiento, correo, contrasena);
 
         // Insertar el usuario en el árbol AVL
         arbolUsuariosGeneral->add(nuevoUsuario);
@@ -115,6 +118,7 @@ void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
         qDebug() << "Recorrido postorden:";
         arbolUsuariosGeneral->postorden(arbolUsuariosGeneral->raiz);  // Imprime el recorrido en postorden
         qDebug() << "Usuario agregado:" << nuevoUsuario->correo;
+        qDebug() << "Id usuario: " << nuevoUsuario->id;
     }
 
     // Generar el archivo dot y la imagen PNG
@@ -230,11 +234,22 @@ void ProfileAdministrator::on_pushButton_cargasolicitudes_clicked()
             if (!existeAceptada) { // no deberia negarse ?
                 // Inserta en la matriz de amigos y agrega la solicitud aceptada
                 cout << "La solicitud de " << emisor.toStdString() << " a " << receptor.toStdString() << " ha sido añadida con estado: ACEPTADA DEFECTO" << endl;
-                // bool valor = true;
-                // int emisorId = listaUsuarios->getId(emisor);
+                bool valor = true;
+                //int emisorId = listaUsuarios->getId(emisor);
                 // int receptorId = listaUsuarios->getId(receptor);
                 // matrizAmigos.insert(emisorId, receptorId, valor, emisor, receptor);
                 // matrizAmigos.insert(receptorId, emisorId, valor, receptor, emisor);
+                Usuario* thisemisor = arbolUsuariosGeneral->preordenBuscarCorreo(arbolUsuariosGeneral->raiz, emisor);
+                qDebug() << thisemisor;
+                int emisorId = thisemisor->id;
+                std::string emisorName = thisemisor->nombres.toStdString();
+                Usuario* thisreceptor = arbolUsuariosGeneral->preordenBuscarCorreo(arbolUsuariosGeneral->raiz, receptor);
+                qDebug() << thisreceptor;
+                int receptorId = thisreceptor->id;
+                std::string receptorName = thisreceptor->nombres.toStdString();
+                listOfList->insert(emisorId, receptorId, emisorName, receptorName);
+                listOfList->print();
+                listOfList->graph();
             }
         }
     }

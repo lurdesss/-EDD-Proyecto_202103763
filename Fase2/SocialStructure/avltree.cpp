@@ -183,7 +183,7 @@ void AVLTree::inordenCase(Node* tmp, QTableWidget* tableWidget, int& localIndex)
         inordenCase(tmp->izq, tableWidget, localIndex);
         // Añadir una nueva fila a la tabla
         tableWidget->insertRow(localIndex);
-        
+
         // Suponiendo que tu clase Usuario tiene estos métodos
         tableWidget->setItem(localIndex, 0, new QTableWidgetItem(tmp->user->nombres)); // Sin fromStdString
         tableWidget->setItem(localIndex, 1, new QTableWidgetItem(tmp->user->apellidos));
@@ -257,9 +257,9 @@ void AVLTree::toDot(Node* tmp, std::ofstream& file) {
 // Método para crear el archivo DOT
 void AVLTree::generateDot(const std::string& filename) {
     // Modifica aquí la ruta al archivo
-    std::string rutaArchivo = "../../salida/" + filename; 
+    std::string rutaArchivo = "../../salida/" + filename;
     std::ofstream file(rutaArchivo);
-    
+
     if (!file.is_open()) {
         std::cerr << "Error al abrir el archivo: " << rutaArchivo << std::endl;
         return; // Termina el método si hay un error
