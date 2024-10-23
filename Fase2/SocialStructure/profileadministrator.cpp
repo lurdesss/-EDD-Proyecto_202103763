@@ -12,6 +12,7 @@
 #include <QTimer>
 #include <QSignalMapper>
 #include "contador.h"
+#include <map>
 
 using json = nlohmann::json;
 
@@ -45,7 +46,7 @@ void ProfileAdministrator::on_actioncargamasiva_triggered()
 }
 
 // Nueva función para recibir el árbol desde el login
-void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst) {
+void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst, FrequencyList* frequencylst) {
     this->arbolUsuariosGeneral = arbol;  // Asignar el árbol
     this->listaDoblePublicaciones = lista;  // Asignar la lista de publicaciones
     this->abbPublicaciones = abbsi; // Asignar la lista de publicaciones
@@ -53,6 +54,7 @@ void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* li
     this->pilaSolicitudes = pilasol; // Asigna a la pila de solicitudes
     this->listaSolicitudes = listasol; // Asigna a la lista de solicitudes
     this->listOfList = listooflst; // Asigna a la lista de soicitudes
+    this->frequencyList = frequencylst; //  lista de frecuencia
 }
 
 void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
@@ -250,11 +252,16 @@ void ProfileAdministrator::on_pushButton_cargasolicitudes_clicked()
                 listOfList->insert(emisorId, receptorId, emisorName, receptorName);
                 listOfList->print();
                 listOfList->graph();
+
+                // Realizar el BFS con límite y contar nodos únicos en el segundo nivel
+                listOfList->bfsFriends("Fase2", *frequencyList);
+                cout << "Frecuencia de nodos en el segundo nivel:" << endl;
+                frequencyList->printFrequencies();
+                listOfList->graphMeFriendsAndTheirFriends("Fase2");
+                }
             }
         }
     }
-
-}
 
 
 void ProfileAdministrator::on_pushButton_cargapublicaciones_clicked()

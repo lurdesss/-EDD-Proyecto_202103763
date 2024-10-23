@@ -22,6 +22,8 @@ BTree* btreeComentarios = new BTree();
 PilaSolicitudes* pilaSolicitudes = new PilaSolicitudes();
 ListaSimpleSolicitudes* listaSolicitudes = new ListaSimpleSolicitudes();
 ListOfList* listOfList = new ListOfList();
+FrequencyList* frequencyList = new FrequencyList();
+
 
 Usuario* usuarioensesion;
 
@@ -66,7 +68,7 @@ void Login::on_pushButton_login_clicked()
         hide();  // Oculta la ventana de login
         profileAdministrator = new ProfileAdministrator();  // Crea la ventana de perfil del administrador
         profileAdministrator->show();
-        profileAdministrator->cargaArchivo(arbolUsuariosGeneral, listaDoblePublicaciones, abbPublicaciones, btreeComentarios, pilaSolicitudes, listaSolicitudes, listOfList);  // Carga datos del árbol
+        profileAdministrator->cargaArchivo(arbolUsuariosGeneral, listaDoblePublicaciones, abbPublicaciones, btreeComentarios, pilaSolicitudes, listaSolicitudes, listOfList, frequencyList);  // Carga datos del árbol
     }
     // Verifica si se encontró un usuario
     else if (usuarioEncontrado != nullptr) {

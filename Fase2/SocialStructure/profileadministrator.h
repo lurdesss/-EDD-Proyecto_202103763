@@ -25,7 +25,7 @@ class ProfileAdministrator : public QMainWindow
 public:
     explicit ProfileAdministrator(QWidget *parent = nullptr);
     ~ProfileAdministrator();
-    void cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst);
+    void cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst, FrequencyList* frequencylst);
     void addButtonsToTable();
 
     ListaSimple listaSolicitudesEnviadas;
@@ -62,6 +62,7 @@ private:
     PilaSolicitudes* pilaSolicitudes;
     ListaSimpleSolicitudes* listaSolicitudes;
     ListOfList* listOfList;
+    FrequencyList* frequencyList;
 };
 
 #endif // PROFILEADMINISTRATOR_H
