@@ -82,4 +82,32 @@ public:
     void graphMeFriendsAndTheirFriends(const string& startNode);
 };
 
+
+// Estructura para almacenar un hijo y su frecuencia (número de padres)
+struct ChildNode {
+    string childName;    // Nombre del hijo
+    int frequency;       // Frecuencia (número de padres)
+    ChildNode* next;     // Puntero al siguiente nodo en la lista
+};
+
+// Lista enlazada para almacenar todos los hijos y sus frecuencias
+class ChildFrequencyList {
+private:
+    ChildNode* head;     // Puntero al primer nodo en la lista
+
+public:
+    ChildFrequencyList();  // Constructor
+    ~ChildFrequencyList(); // Destructor
+
+    // Función para añadir un hijo o incrementar su contador
+    void addChild(const string& childName);
+
+    // Función para obtener la frecuencia de un hijo
+    int getFrequency(const string& childName) const;
+
+    // Función para imprimir la lista (debugging)
+    void printList() const;
+};
+
+
 #endif // RELATIONLIST_H
