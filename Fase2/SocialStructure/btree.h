@@ -46,7 +46,7 @@ public:
 
     void insert(Comentario* comment);
     void traversal(BTreeNode *myNode);
-    void printAll(BTreeNode *node);
+    void printTree(BTreeNode *node);
 
 private:
     int setValue(Comentario* cmnt, Comentario* *pval, BTreeNode *node, BTreeNode **child);

@@ -962,20 +962,15 @@ color: rgb(143, 136, 139);</string>
       <height>475</height>
      </rect>
     </property>
-    <widget class="QTableWidget" name="tableWidget_2">
+    <widget class="QTableWidget" name="tableWidget_sugerencias">
      <property name="geometry">
       <rect>
-       <x>350</x>
+       <x>150</x>
        <y>70</y>
-       <width>301</width>
+       <width>401</width>
        <height>150</height>
       </rect>
      </property>
-     <column>
-      <property name="text">
-       <string>Fecha</string>
-      </property>
-     </column>
      <column>
       <property name="text">
        <string>Usuario</string>
@@ -983,113 +978,7 @@ color: rgb(143, 136, 139);</string>
      </column>
      <column>
       <property name="text">
-       <string>Cantidad /comme</string>
-      </property>
-     </column>
-    </widget>
-    <widget class="QLabel" name="label_11">
-     <property name="geometry">
-      <rect>
-       <x>360</x>
-       <y>40</y>
-       <width>270</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Publicaciones con mas comentarios</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QWidget" name="layoutWidget_8">
-     <property name="geometry">
-      <rect>
-       <x>180</x>
-       <y>400</y>
-       <width>301</width>
-       <height>71</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_9">
-      <item>
-       <widget class="QComboBox" name="comboBox_3">
-        <item>
-         <property name="text">
-          <string>Fecha</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_16">
-        <item>
-         <widget class="QPushButton" name="pushButton_generareporte">
-          <property name="layoutDirection">
-           <enum>Qt::LayoutDirection::RightToLeft</enum>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 193, 7);</string>
-          </property>
-          <property name="text">
-           <string>Generar</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>25</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="default">
-           <bool>true</bool>
-          </property>
-          <property name="flat">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_hidebtn">
-          <property name="layoutDirection">
-           <enum>Qt::LayoutDirection::RightToLeft</enum>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(255, 193, 7);</string>
-          </property>
-          <property name="text">
-           <string>Dejar de ver</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>25</width>
-            <height>25</height>
-           </size>
-          </property>
-          <property name="default">
-           <bool>true</bool>
-          </property>
-          <property name="flat">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QTableWidget" name="tableWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>70</y>
-       <width>201</width>
-       <height>150</height>
-      </rect>
-     </property>
-     <column>
-      <property name="text">
-       <string>Fecha</string>
+       <string>Correo</string>
       </property>
      </column>
      <column>
@@ -1097,14 +986,19 @@ color: rgb(143, 136, 139);</string>
        <string>Cantidad</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>Action</string>
+      </property>
+     </column>
     </widget>
-    <widget class="QPushButton" name="pushButton_edit_9">
+    <widget class="QPushButton" name="pushButton_versugerencias">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>270</x>
        <y>240</y>
-       <width>229</width>
-       <height>24</height>
+       <width>161</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="layoutDirection">
@@ -1114,7 +1008,7 @@ color: rgb(143, 136, 139);</string>
       <string notr="true">background-color: rgb(255, 193, 7);</string>
      </property>
      <property name="text">
-      <string>Generar reportes</string>
+      <string>Ver sugerencias</string>
      </property>
      <property name="iconSize">
       <size>
@@ -1129,17 +1023,17 @@ color: rgb(143, 136, 139);</string>
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLabel" name="label_12">
+    <widget class="QLabel" name="label_anadeamigosde">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>40</y>
+       <x>220</x>
+       <y>20</y>
        <width>260</width>
-       <height>16</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>Fechas con mas publicaciones</string>
+      <string>Añade amigos de amigos!</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1149,8 +1043,8 @@ color: rgb(143, 136, 139);</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>30</y>
-       <width>640</width>
+       <y>400</y>
+       <width>625</width>
        <height>350</height>
       </rect>
      </property>
@@ -1168,6 +1062,68 @@ color: rgb(143, 136, 139);</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_hidebtn">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>410</y>
+       <width>151</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LayoutDirection::RightToLeft</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 193, 7);</string>
+     </property>
+     <property name="text">
+      <string>Dejar de ver</string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="default">
+      <bool>true</bool>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_generareporte">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>410</y>
+       <width>151</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LayoutDirection::RightToLeft</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 193, 7);</string>
+     </property>
+     <property name="text">
+      <string>Ver sugerencias</string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="default">
+      <bool>true</bool>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
@@ -1319,7 +1275,7 @@ color: rgb(143, 136, 139);</string>
      <x>0</x>
      <y>0</y>
      <width>750</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <property name="accessibleName">
@@ -1447,7 +1403,7 @@ color: rgb(143, 136, 139);</string>
    </property>
    <property name="icon">
     <iconset resource="images.qrc">
-     <normaloff>:/images/images/grafico.png</normaloff>:/images/images/grafico.png</iconset>
+     <normaloff>:/images/images/dialogo.png</normaloff>:/images/images/dialogo.png</iconset>
    </property>
    <property name="text">
     <string>Reports</string>

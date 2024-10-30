@@ -1,4 +1,5 @@
 #include "btree.h"
+#include <QDebug> 
 
 void BTree::insert(Comentario* val) {
     Comentario* newval = nullptr;
@@ -6,6 +7,7 @@ void BTree::insert(Comentario* val) {
     if (setValue(val, &newval, root, &child)) {
         root = createNode(newval, child);
     }
+    qDebug() << "Se insertaron correctamente los datos";   
 }
 
 int BTree::setValue(Comentario* val, Comentario** pval, BTreeNode *node, BTreeNode **child) {
@@ -89,26 +91,39 @@ void BTree::splitNode(Comentario* val, Comentario* *pval, int pos, BTreeNode *no
 }
 
 void BTree::traversal(BTreeNode *myNode) {
-    int i;
     if (myNode) {
-        std::cout << "[";
-        for (i = 0; i < myNode->num; i++) {
-            std::cout << myNode->val[i + 1]->key.toStdString() << ",";
+        qDebug() << "[";
+        for (int i = 1; i < myNode->num; i++) {
+            traversal(myNode->link[i]);  // Recorre los subárboles
+            qDebug() << myNode->val[i]->comentario.toStdString();  // Imprime el valor actual
+            if (i < myNode->num - 1) std::cout << ",";
         }
-        for (i = 0; i <= myNode->num; i++) {
-            traversal(myNode->link[i]);
-        }
-        std::cout << "]";
+        traversal(myNode->link[myNode->num]);  // Último subárbol
+        qDebug() << "]";
     }
 }
 
 
-void BTree::printAll(BTreeNode *node) {
-    if (node) {
-        for (int i = 0; i < node->num; i++) {
-            printAll(node->link[i]); // Recorrer el subárbol izquierdo
-            std::cout << node->val[i + 1]->comentario.toStdString() << " "; // Imprimir el valor del nodo
+void BTree::printTree(BTreeNode* node) {
+    if (node == nullptr) return;  // Evitar nodos nulos
+
+    // Recorre los elementos del nodo en orden
+    for (int i = 1; i < node->num; i++) {
+        // Llama recursivamente al hijo izquierdo antes de imprimir el valor actual
+        printTree(node->link[i]);
+
+        // Imprime el comentario solo si no es nulo
+        Comentario* comentario = node->val[i];
+        if (comentario != nullptr) {
+                    qDebug() << "Clave: " << comentario->key.toStdString() ;
+                    qDebug()  << "Correo: " << comentario->correo.toStdString();
+                    qDebug()  << "Comentario: " << comentario->comentario.toStdString();
+                    qDebug()  << "Fecha: " << comentario->fecha.toStdString();
+                    qDebug()  << "Hora: " << comentario->hora.toStdString();
         }
-        printAll(node->link[node->num]); // Recorrer el subárbol derecho
     }
+
+    // Llama recursivamente al último hijo
+    printTree(node->link[node->num]);
 }
+

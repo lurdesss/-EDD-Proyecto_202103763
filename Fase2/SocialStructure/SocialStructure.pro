@@ -11,13 +11,16 @@ CONFIG += c++17
 SOURCES += \
     abb.cpp \
     avltree.cpp \
+    blockchain.cpp \
     btree.cpp \
     contador.cpp \
     globals.cpp \
+    huffman.cpp \
     listapublicaciones.cpp \
     listasimple.cpp \
     listasimpleamigos.cpp \
     listasimplesolicitudes.cpp \
+    listasugerencias.cpp \
     main.cpp \
     login.cpp \
     matrix.cpp \
@@ -34,17 +37,21 @@ SOURCES += \
 HEADERS += \
     abb.h \
     avltree.h \
+    blockchain.h \
     btree.h \
     contador.h \
     globals.h \
+    huffman.h \
     listapublicaciones.h \
     listasimple.h \
     listasimpleamigos.h \
     listasimplesolicitudes.h \
+    listasugerencias.h \
     login.h \
     matrix.h \
     nodoamigos.h \
     nodosolicitud.h \
+    nodosugerencias.h \
     pilasolicitudes.h \
     profileadministrator.h \
     profileuser.h \

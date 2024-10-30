@@ -1,0 +1,6 @@
+digraph ABB {
+	node [shape=egg];
+"18/08/2024" [label="Fecha: 18/08/2024\nContenido: La música siempre encuentra la manera de alegrar mi día."];
+"18/08/2024" -> "18/08/2024" [label="right"];
+"18/08/2024" [label="Fecha: 18/08/2024\nContenido: Las sonrisas sinceras son el mejor regalo que puedes dar."];
+}

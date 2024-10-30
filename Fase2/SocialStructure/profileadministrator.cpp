@@ -46,7 +46,7 @@ void ProfileAdministrator::on_actioncargamasiva_triggered()
 }
 
 // Nueva función para recibir el árbol desde el login
-void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst, FrequencyList* frequencylst) {
+void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst) {
     this->arbolUsuariosGeneral = arbol;  // Asignar el árbol
     this->listaDoblePublicaciones = lista;  // Asignar la lista de publicaciones
     this->abbPublicaciones = abbsi; // Asignar la lista de publicaciones
@@ -54,7 +54,7 @@ void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* li
     this->pilaSolicitudes = pilasol; // Asigna a la pila de solicitudes
     this->listaSolicitudes = listasol; // Asigna a la lista de solicitudes
     this->listOfList = listooflst; // Asigna a la lista de soicitudes
-    this->frequencyList = frequencylst; //  lista de frecuencia
+    //this->frequencyList = frequencylst; //  lista de frecuencia
 }
 
 void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
@@ -236,11 +236,7 @@ void ProfileAdministrator::on_pushButton_cargasolicitudes_clicked()
             if (!existeAceptada) { // no deberia negarse ?
                 // Inserta en la matriz de amigos y agrega la solicitud aceptada
                 cout << "La solicitud de " << emisor.toStdString() << " a " << receptor.toStdString() << " ha sido añadida con estado: ACEPTADA DEFECTO" << endl;
-                bool valor = true;
-                //int emisorId = listaUsuarios->getId(emisor);
-                // int receptorId = listaUsuarios->getId(receptor);
-                // matrizAmigos.insert(emisorId, receptorId, valor, emisor, receptor);
-                // matrizAmigos.insert(receptorId, emisorId, valor, receptor, emisor);
+                
                 Usuario* thisemisor = arbolUsuariosGeneral->preordenBuscarCorreo(arbolUsuariosGeneral->raiz, emisor);
                 qDebug() << thisemisor;
                 int emisorId = thisemisor->id;
@@ -250,14 +246,16 @@ void ProfileAdministrator::on_pushButton_cargasolicitudes_clicked()
                 int receptorId = thisreceptor->id;
                 std::string receptorName = thisreceptor->nombres.toStdString();
                 listOfList->insert(emisorId, receptorId, emisorName, receptorName);
+                qDebug() << "llamo a print ----------------";
                 listOfList->print();
+                qDebug() << "end -----------------";
                 listOfList->graph();
 
-                // Realizar el BFS con límite y contar nodos únicos en el segundo nivel
-                listOfList->bfsFriends("Fase2", *frequencyList);
-                cout << "Frecuencia de nodos en el segundo nivel:" << endl;
-                frequencyList->printFrequencies();
                 listOfList->graphMeFriendsAndTheirFriends("Fase2");
+                //gasdgsa =new Lisat ....();
+                //listOfList->funcion(usuario, lista);
+
+                listOfList->graphOfAdyacencia();
                 }
             }
         }
@@ -330,26 +328,30 @@ void ProfileAdministrator::on_pushButton_cargapublicaciones_clicked()
                 QString fechaComentario = QString::fromStdString(comentario["fecha"].get<std::string>());
                 QString horaComentario = QString::fromStdString(comentario["hora"].get<std::string>());
 
-                // Imprimir los datos del comentario
-                qDebug() << "  Comentario de:" << correoComentario;
-                qDebug() << "  Comentario:" << textoComentario;
-                qDebug() << "  Fecha del comentario:" << fechaComentario;
-                qDebug() << "  Hora del comentario:" << horaComentario;
+                // si
 
                 Comentario* come = new Comentario(correoComentario,textoComentario,fechaComentario,horaComentario);
                 NodoTmp->abbcadausr->raiz->nodoAB->insert(come);
-            
-
+                //qDebug() << "si ccomentarios";
+                //NodoTmp->abbcadausr->raiz->nodoAB->printTree(NodoTmp->abbcadausr->raiz->nodoAB->root);
+                //qDebug() << "traversal";
+                //NodoTmp->abbcadausr->raiz->nodoAB->traversal(NodoTmp->abbcadausr->raiz->nodoAB->root);
+                //qDebug() << NodoTmp->abbcadausr->raiz->nodoAB->root->val[1]->comentario.toStdString();
+                //qDebug() << "comentarios estan arriba";
             }
         }
 
         qDebug() << "-------------------------------";
+
+        
     }
+
+
     std::cerr << "ya jalo tu :D" << std::endl;
-    // Node* NodoTemp = arbolUsuariosGeneral->preordenBuscarCorreoNodo(arbolUsuariosGeneral->raiz, "f2@gmail.com");
-    // NodoTemp->abbcadausr->preorder(NodoTemp->abbcadausr->raiz);
-    // qDebug() << "------------------------------- aca";
-    // NodoTemp->abbcadausr->raiz->nodoAB->printAll(NodoTemp->abbcadausr->raiz->nodoAB->root);
+    Node* NodoTemp = arbolUsuariosGeneral->preordenBuscarCorreoNodo(arbolUsuariosGeneral->raiz, "jm@example.com");
+    //0NodoTemp->abbcadausr->preorder(NodoTemp->abbcadausr->raiz);
+    qDebug() << "------------------------------- aca";
+    NodoTemp->abbcadausr->raiz->nodoAB->traversal(NodoTemp->abbcadausr->raiz->nodoAB->root);
     // std::cout << std::endl;
 
 

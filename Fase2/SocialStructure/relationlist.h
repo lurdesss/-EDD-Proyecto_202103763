@@ -38,26 +38,6 @@ public:
     bool relationExists(const string& nombrei, const string& nombrej);
 };
 
-// Clase para almacenar la frecuencia de los nodos
-class NodeFrequency {
-public:
-    string nodeName;
-    int frequency;
-    NodeFrequency* next;
-
-    NodeFrequency(const string& nodeName);
-};
-
-// Clase para manejar la lista de frecuencias
-class FrequencyList {
-public:
-    NodeFrequency* head;
-
-    FrequencyList();
-    void addOrUpdate(const string& nodeName);
-    void printFrequencies();
-};
-
 // Clase para almacenar cada nodo de relaciones
 class NodoRelaciones {
 public:
@@ -78,8 +58,8 @@ public:
     void insert(int index, int targetIndex, const string& sourceName, const string& targetName);
     void print();
     void graph();
-    void bfsFriends(const string& startNode, FrequencyList& frequencyList); // Función para contar amigos
     void graphMeFriendsAndTheirFriends(const string& startNode);
+    void graphOfAdyacencia();
 };
 
 

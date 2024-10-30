@@ -1,0 +1,10 @@
+digraph G{
+rankdir=LR;
+node [shape=record];
+Juan [label="{Juan|Fase2 | Ana}"];
+Fase2 [label="{Fase2|Jose | Miguel | Sofia}"];
+Sofia [label="{Sofia|Maria}"];
+Jose [label="{Jose|Maria}"];
+Miguel [label="{Miguel|Maria}"];
+Maria [label="{Maria|Carlos}"];
+}
