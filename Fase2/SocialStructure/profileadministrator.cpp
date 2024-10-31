@@ -46,7 +46,7 @@ void ProfileAdministrator::on_actioncargamasiva_triggered()
 }
 
 // Nueva función para recibir el árbol desde el login
-void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst) {
+void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst, ListaSimple* listaSolicitudesEnvi) {
     this->arbolUsuariosGeneral = arbol;  // Asignar el árbol
     this->listaDoblePublicaciones = lista;  // Asignar la lista de publicaciones
     this->abbPublicaciones = abbsi; // Asignar la lista de publicaciones
@@ -55,6 +55,7 @@ void ProfileAdministrator::cargaArchivo(AVLTree* arbol, ListaDePublicaciones* li
     this->listaSolicitudes = listasol; // Asigna a la lista de solicitudes
     this->listOfList = listooflst; // Asigna a la lista de soicitudes
     //this->frequencyList = frequencylst; //  lista de frecuencia
+    this->listaSolicitudesEnviadas = listaSolicitudesEnvi;
 }
 
 void ProfileAdministrator::on_pushButton_cargausuarios_clicked()
@@ -205,31 +206,31 @@ void ProfileAdministrator::on_pushButton_cargasolicitudes_clicked()
         qDebug() << "-------------------------------";
 
         // Verificar si ya existe una solicitud aceptada entre emisor y receptor o viceversa
-        bool existeAceptada = listaSolicitudesEnviadas.existeSolicitudAceptada(emisor.toStdString(), receptor.toStdString()) ||
-                              listaSolicitudesEnviadas.existeSolicitudAceptada(emisor.toStdString(), receptor.toStdString());
+        bool existeAceptada = listaSolicitudesEnviadas->existeSolicitudAceptada(emisor.toStdString(), receptor.toStdString()) ||
+                              listaSolicitudesEnviadas->existeSolicitudAceptada(emisor.toStdString(), receptor.toStdString());
 
 
         // Verificar si ya existe una solicitud pendiente del emisor al receptor o viceversa
-        bool existePendiente = listaSolicitudesEnviadas.existeSolicitudPendiente(emisor.toStdString(), receptor.toStdString()) ||
-                               listaSolicitudesEnviadas.existeSolicitudPendiente(emisor.toStdString(), receptor.toStdString());
+        bool existePendiente = listaSolicitudesEnviadas->existeSolicitudPendiente(emisor.toStdString(), receptor.toStdString()) ||
+                               listaSolicitudesEnviadas->existeSolicitudPendiente(emisor.toStdString(), receptor.toStdString());
 
 
         if (estado == "PENDIENTE") {
             if (existeAceptada) {
                 // Si ya hay una solicitud aceptada, se elimina cualquier solicitud pendiente existente
-                listaSolicitudesEnviadas.eliminarSolicitud(emisor.toStdString(), receptor.toStdString(), "PENDIENTE");
-                listaSolicitudesEnviadas.eliminarSolicitud(receptor.toStdString(), emisor.toStdString(), "PENDIENTE");
+                listaSolicitudesEnviadas->eliminarSolicitud(emisor.toStdString(), receptor.toStdString(), "PENDIENTE");
+                listaSolicitudesEnviadas->eliminarSolicitud(receptor.toStdString(), emisor.toStdString(), "PENDIENTE");
             } else if (!existePendiente) {
                 // Si no hay una solicitud pendiente, se agrega la solicitud pendiente
-                listaSolicitudesEnviadas.agregarSolicitud(emisor.toStdString(), receptor.toStdString(), estado.toStdString());
+                listaSolicitudesEnviadas->agregarSolicitud(emisor.toStdString(), receptor.toStdString(), estado.toStdString());
 
                 cout << "La solicitud de " << emisor.toStdString() << " a " << receptor.toStdString() << " ha sido añadida en estado: PENDIENTE" << endl;
             }
         } else if (estado == "ACEPTADA") {
             if (existePendiente) {
                 // Si existe una solicitud pendiente, se elimina y se cambia el estado a "ACEPTADA"
-                listaSolicitudesEnviadas.eliminarSolicitud(emisor.toStdString(), receptor.toStdString(), "PENDIENTE");
-                listaSolicitudesEnviadas.eliminarSolicitud(receptor.toStdString(), emisor.toStdString(), "PENDIENTE");
+                listaSolicitudesEnviadas->eliminarSolicitud(emisor.toStdString(), receptor.toStdString(), "PENDIENTE");
+                listaSolicitudesEnviadas->eliminarSolicitud(receptor.toStdString(), emisor.toStdString(), "PENDIENTE");
                 cout << "La solicitud PENDIENTE de " << emisor.toStdString() << " a " << receptor.toStdString() << " ha sido añadida A: ACEPTADA CAMBIO" << endl;
                 // se debe añadir a matriz
             }
@@ -593,7 +594,29 @@ void ProfileAdministrator::on_pushButton_reporte_merkle_clicked()
 {
     // no
     ui->label_tituloimages->clear();
-    ui->label_tituloimages->setText("Árbol de Merkle");
+    ui->label_tituloimages->setText("Árbol de Huffman");
     ui->label_forimages->clear();
+    // pushButton_reporte_merkle
+    QString rutaimgposts = rutaBase + "salida/huffman_tree.png";
+    // Verificar si la imagen existe
+    if (!QFile::exists(rutaimgposts)) {
+        QMessageBox::warning(this, "Error", "No se encontró la imagen en la ruta: " + rutaimgposts);
+        return;
+    }
+
+    // Cargar la imagen desde la ruta
+    QImage image(rutaimgposts);
+
+    // Verificar si la imagen se cargó correctamente
+    if (image.isNull()) {
+        QMessageBox::warning(this, "Error", "Error al cargar la imagen: " + rutaimgposts);
+        return;
+    }
+
+    // Asignar la imagen a un QLabel
+    ui->label_forimages->setPixmap(QPixmap::fromImage(image));
+
+    // Ajustar el tamaño del QLabel para que se ajuste a la imagen
+    ui->label_forimages->setScaledContents(true);
 }
 

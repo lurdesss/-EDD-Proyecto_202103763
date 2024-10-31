@@ -4,6 +4,10 @@
 #include <string>
 #include <fstream>
 #include <QString>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QFile>
 
 using namespace std;
 
@@ -221,7 +225,7 @@ void ListOfList::graphMeFriendsAndTheirFriends(const string& startNode) {
     }
 
     // Definición de colores para los nodos
-    const string startNodeColor = "#A0D8E0";       // Color para el nodo inicial
+    const string startNodeColor = "#A3D9A5";       // Color para el nodo inicial
     const string friendNodeColor = "#B2E1D6";      // Color para amigos directos
     const string friendOfFriendColor = "#F6E79E";
 
@@ -417,171 +421,22 @@ void ListOfList::graphOfAdyacencia() {
 }
 
 
+void ListOfList::guardarAmigosEnJson(QJsonArray& amigosArray) {
+    shared_ptr<NodoRelaciones> temp = head;
 
+    while (temp) {
+        shared_ptr<SubNode> subTemp = temp->list;
+        while (subTemp) {
+            // Crear un objeto JSON para cada relación
+            QJsonObject amigoObject;
+            amigoObject["nombreEmisor"] = QString::fromStdString(temp->name);
+            amigoObject["nombreReceptor"] = QString::fromStdString(subTemp->targetName);
 
+            amigosArray.append(amigoObject);
+            subTemp = subTemp->next;
+        }
+        temp = temp->next;
+    }
+}
 
-// void ListOfList::prueba(const string& startNode, ListaSugerenc) {
-//     // Establece la ruta base para guardar el archivo de salida
-//     QString rutaBase = "/home/lurdes/Escritorio/datastructures/-EDD-Proyecto_202103763/Fase2/SocialStructure/salida/";
-//     ofstream file((rutaBase + "graph_friends.dot").toStdString()); // Crea un flujo de salida para el archivo DOT
-//     file << "graph G{" << endl; // Inicia la definición del gráfico
-//     file << "rankdir=LR;" << endl;  // Configura la dirección del gráfico de izquierda a derecha
-
-//     RelationList relations; // Estructura para almacenar las relaciones agregadas
-//     ChildFrequencyList childFrequency; // Lista de frecuencias para los nodos hijos
-
-//     shared_ptr<NodoRelaciones> temp = head; // Inicializa un puntero temporal al inicio de la lista
-
-//     // Buscamos el nodo de inicio
-//     while (temp && temp->name != startNode) {
-//         temp = temp->next; // Avanza en la lista hasta encontrar el nodo deseado
-//     }
-
-//     // Verifica si el nodo de inicio fue encontrado
-//     if (!temp) {
-//         cout << "Nodo inicial no encontrado!" << endl; // Mensaje de error si el nodo no existe
-//         return; // Termina la función
-//     }
-
-//     // Definición de colores para los nodos
-//     const string startNodeColor = "#A0D8E0";       // Color para el nodo inicial
-//     const string friendNodeColor = "#B2E1D6";      // Color para amigos directos
-//     const string friendOfFriendColor = "#F6E79E";
-
-//     struct QueueNode {
-//         shared_ptr<NodoRelaciones> node; // Nodo actual
-//         int level;                        // Nivel del nodo (distancia desde el nodo inicial)
-//         QueueNode* next;                 // Puntero al siguiente nodo en la cola
-//     };
-
-//     // Inicialización de la cola
-//     QueueNode* front = nullptr; // Frente de la cola
-//     QueueNode* rear = nullptr;  // Final de la cola
-
-//     auto enqueue = [&](shared_ptr<NodoRelaciones> node, int level) {
-//         QueueNode* newNode = new QueueNode{node, level, nullptr}; // Crea un nuevo nodo de la cola
-//         if (!rear) {
-//             front = rear = newNode; // Si la cola estaba vacía, establece el nuevo nodo como frente y final
-//         } else {
-//             rear->next = newNode; // Enlaza el nuevo nodo al final de la cola
-//             rear = newNode;       // Actualiza el final de la cola
-//         }
-//     };
-
-//     auto dequeue = [&]() -> QueueNode* {
-//         if (!front) return nullptr; // Si la cola está vacía, retorna nullptr
-//         QueueNode* tempNode = front; // Almacena el nodo frontal
-//         front = front->next; // Mueve el frente al siguiente nodo
-//         if (!front) rear = nullptr; // Si la cola queda vacía, actualiza el final a nullptr
-//         return tempNode; // Retorna el nodo desencolado
-//     };
-
-//     enqueue(temp, 0); // Encola el nodo inicial con nivel 0
-
-//     // Dentro del procesamiento de nodos en la cola
-//     while (front) {
-//         QueueNode* qNode = dequeue(); // Desencola un nodo
-//         if (!qNode) break; // Si no hay más nodos, termina el bucle
-
-//         string nodeColor = (qNode->level == 0) ? startNodeColor :
-//                                (qNode->level == 1) ? friendNodeColor :
-//                                friendOfFriendColor;
-
-//         file << qNode->node->name << " [color=\"" << nodeColor << "\", fontcolor=\"black\", style=\"filled\", shape=\"egg\"];" << endl;
-
-//         cout << "Nodo añadido: " << qNode->node->name << " con color " << nodeColor << endl;
-
-//         shared_ptr<SubNode> subTemp = qNode->node->list;
-//         while (subTemp) {
-//             if (!relations.relationExists(qNode->node->name, subTemp->targetName)) {
-//                 file << qNode->node->name << " -- " << subTemp->targetName << ";" << endl;
-//                 cout << "Relación añadida: " << qNode->node->name << " -- " << subTemp->targetName << endl;
-//                 relations.addRelation(qNode->node->index, subTemp->value, qNode->node->name, subTemp->targetName);
-//             }
-
-//             if (qNode->level == 0) {
-//                 shared_ptr<NodoRelaciones> nextNode = head;
-//                 while (nextNode) {
-//                     if (nextNode->name == subTemp->targetName) {
-//                         enqueue(nextNode, qNode->level + 1);
-//                         file << nextNode->name << " [color=\"" << friendNodeColor << "\", fontcolor=\"black\", style=\"filled\", shape=\"egg\"];" << endl;
-
-//                         cout << "Nodo de nivel 1 añadido: " << nextNode->name << endl;
-
-//                         // CONTADOR QUE INCREMENTA ACA : contador1
-//                         childFrequency.addChild(nextNode->name);
-//                         cout << "Frecuencia de " << nextNode->name << " incrementada. Total: " << childFrequency.getFrequency(nextNode->name) << endl;
-//                         // lista sugerencias add
-//                         break;
-//                     }
-//                     nextNode = nextNode->next;
-//                 }
-//             } else if (qNode->level == 1) {
-//                 shared_ptr<NodoRelaciones> nextNode = head;
-//                 while (nextNode) {
-//                     if (nextNode->name == subTemp->targetName) {
-//                         file << nextNode->name << " [color=\"" << friendOfFriendColor << "\", fontcolor=\"black\", style=\"filled\", shape=\"egg\"];" << endl;
-//                         cout << "Nodo de nivel 2 añadido: " << nextNode->name << endl;
-
-//                         // CONTADOR QUE INCREMENTA ACA : contador2
-//                         childFrequency.addChild(nextNode->name);
-//                         cout << "Frecuencia de " << nextNode->name << " incrementada. Total: " << childFrequency.getFrequency(nextNode->name) << endl;
-
-//                         break;
-//                     }
-//                     nextNode = nextNode->next;
-//                 }
-//             }
-
-//             subTemp = subTemp->next;
-//         }
-
-//         temp = head;
-//         while (temp) {
-//             shared_ptr<SubNode> subTempBack = temp->list;
-//             while (subTempBack) {
-//                 if (subTempBack->targetName == qNode->node->name) {
-//                     if (!relations.relationExists(temp->name, qNode->node->name)) {
-//                         file << temp->name << " -- " << qNode->node->name << ";" << endl;
-//                         cout << "Relación añadida: " << temp->name << " -- " << qNode->node->name << endl;
-//                         relations.addRelation(temp->index, qNode->node->index, temp->name, qNode->node->name);
-
-//                         file << temp->name << " [color=\"" << friendNodeColor << "\", fontcolor=\"black\", style=\"filled\", shape=\"egg\"];" << endl;
-//                         cout << "Nodo de nivel 1 añadido: " << temp->name << endl;
-//                     }
-
-//                     shared_ptr<SubNode> friendsOfParent = temp->list;
-//                     while (friendsOfParent) {
-//                         if (!relations.relationExists(temp->name, friendsOfParent->targetName)) {
-//                             file << temp->name << " -- " << friendsOfParent->targetName << ";" << endl;
-//                             relations.addRelation(temp->index, friendsOfParent->value, temp->name, friendsOfParent->targetName);
-
-//                             file << friendsOfParent->targetName << " [color=\"" << friendOfFriendColor << "\", fontcolor=\"black\", style=\"filled\", shape=\"egg\"];" << endl;
-//                             cout << "Amigo de un amigo añadido: " << friendsOfParent->targetName << endl;
-
-//                             // CONTADOR QUE INCREMENTA ACA : contador2
-//                             childFrequency.addChild(friendsOfParent->targetName);
-//                             cout << "Frecuencia de " << friendsOfParent->targetName << " incrementada. Total: " << childFrequency.getFrequency(friendsOfParent->targetName) << endl;
-//                         }
-//                         friendsOfParent = friendsOfParent->next;
-//                     }
-//                 }
-//                 subTempBack = subTempBack->next;
-//             }
-//             temp = temp->next;
-//         }
-
-//         delete qNode;
-//     }
-
-//     file << "}" << endl;
-//     file.close();
-
-//     string command = "dot -Tpng " + rutaBase.toStdString() + "graph_friends.dot -o " + rutaBase.toStdString() + "graph_friends.png";
-//     if (system(command.c_str()) == 0) {
-//         cout << "Gráfico de amigos y amigos de amigos creado exitosamente" << endl;
-//     } else {
-//         cout << "Error al crear el gráfico de amigos" << endl;
-//     }
-// }
 

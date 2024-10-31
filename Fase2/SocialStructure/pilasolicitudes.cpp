@@ -1,6 +1,11 @@
 #include "pilasolicitudes.h"
 #include <iostream>
 #include <cstdlib>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QFile>
+#include <QDebug>
 
 PilaSolicitudes::PilaSolicitudes() : tope(nullptr) {}
 
@@ -107,3 +112,17 @@ void PilaSolicitudes::renderGraphviz(const std::string& nombreArchivoDot, const 
 #endif
 }
 
+
+void PilaSolicitudes::guardarSolicitudesEnJson(QJsonArray& solicitudesArray) const {
+    NodoSolicitud* actual = tope;
+    
+    while (actual != nullptr) {
+        QJsonObject solicitudJson;
+        solicitudJson["emisor"] = QString::fromStdString(actual->emisor);
+        solicitudJson["receptor"] = QString::fromStdString(actual->receptor);
+        solicitudJson["estado"] = QString::fromStdString(actual->estado);
+
+        solicitudesArray.append(solicitudJson);
+        actual = actual->siguiente;
+    }
+}

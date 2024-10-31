@@ -5,6 +5,7 @@
 #include "solicitudamistad.h"
 #include "pilasolicitudes.h"
 #include "listasimplesolicitudes.h"
+#include <QJsonArray>
 
 class ListaSimple {
 private:
@@ -25,6 +26,7 @@ public:
 
     //carga
     void carga(PilaSolicitudes* pilasolsi, ListaSimpleSolicitudes* listasolsi);
+    void guardarRelacionesEnJson(QJsonArray& relacionesArray) const;
 
 private:
     PilaSolicitudes* pilaSolicitudes;

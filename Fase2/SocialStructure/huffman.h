@@ -36,5 +36,6 @@ string decompress(HuffmanNode* root, const string& compressedText);
 // Funciones para graficar el árbol en formato Graphviz
 void generateDotFile(HuffmanNode* root, ofstream& dotFile, int& nullCount);
 void createGraph(HuffmanNode* root);
+string escapeForGraphviz(const string& str);
 
 #endif

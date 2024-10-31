@@ -6,8 +6,4 @@ Maria [label="{Maria|Jose | Sofia | Laura}"];
 Ana [label="{Ana|Jose | Sofia | Maria | Elena}"];
 Pedro [label="{Pedro|Jose | Sofia}"];
 Lucia [label="{Lucia|Jose}"];
-Raul [label="{Raul|David}"];
-Elena [label="{Elena|Pablo}"];
-Laura [label="{Laura|Isabel}"];
-David [label="{David|Elena}"];
 }

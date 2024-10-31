@@ -1,0 +1,219 @@
+[
+    {
+        "usuarios": [
+            {
+                "apellidos": "Ramirez",
+                "contraseña": "LR123",
+                "correo": "lr@example.com",
+                "fecha_de_nacimiento": "1991/11/05",
+                "nombres": "Lucia"
+            },
+            {
+                "apellidos": "Vargas",
+                "contraseña": "EV123",
+                "correo": "ev@example.com",
+                "fecha_de_nacimiento": "1995/03/16",
+                "nombres": "Elena"
+            },
+            {
+                "apellidos": "Gomez",
+                "contraseña": "CG123",
+                "correo": "cg@example.com",
+                "fecha_de_nacimiento": "1990/05/12",
+                "nombres": "Carlos"
+            },
+            {
+                "apellidos": "Hernandez",
+                "contraseña": "AH123",
+                "correo": "ah@example.com",
+                "fecha_de_nacimiento": "1994/07/10",
+                "nombres": "Ana"
+            },
+            {
+                "apellidos": "Cruz",
+                "contraseña": "DC123",
+                "correo": "dc@example.com",
+                "fecha_de_nacimiento": "1992/04/19",
+                "nombres": "David"
+            },
+            {
+                "apellidos": "Martinez",
+                "contraseña": "JM123",
+                "correo": "jm@example.com",
+                "fecha_de_nacimiento": "1992/08/15",
+                "nombres": "Juan"
+            },
+            {
+                "apellidos": "Ruiz",
+                "contraseña": "IR123",
+                "correo": "ir@example.com",
+                "fecha_de_nacimiento": "1996/06/02",
+                "nombres": "Isabel"
+            },
+            {
+                "apellidos": "Perez",
+                "contraseña": "JP123",
+                "correo": "jp@example.com",
+                "fecha_de_nacimiento": "1989/10/14",
+                "nombres": "Jose"
+            },
+            {
+                "apellidos": "Gonzalez",
+                "contraseña": "PG123",
+                "correo": "pg@example.com",
+                "fecha_de_nacimiento": "1988/06/30",
+                "nombres": "Pedro"
+            },
+            {
+                "apellidos": "Diaz",
+                "contraseña": "MD123",
+                "correo": "md@example.com",
+                "fecha_de_nacimiento": "1987/12/22",
+                "nombres": "Miguel"
+            },
+            {
+                "apellidos": "Suarez",
+                "contraseña": "LS123",
+                "correo": "ls@example.com",
+                "fecha_de_nacimiento": "1990/01/29",
+                "nombres": "Laura"
+            },
+            {
+                "apellidos": "Lopez",
+                "contraseña": "ML123",
+                "correo": "ml@example.com",
+                "fecha_de_nacimiento": "1985/04/20",
+                "nombres": "Maria"
+            },
+            {
+                "apellidos": "Morales",
+                "contraseña": "RM123",
+                "correo": "rm@example.com",
+                "fecha_de_nacimiento": "1986/09/21",
+                "nombres": "Raul"
+            },
+            {
+                "apellidos": "Navarro",
+                "contraseña": "PN123",
+                "correo": "pn@example.com",
+                "fecha_de_nacimiento": "1984/12/12",
+                "nombres": "Pablo"
+            },
+            {
+                "apellidos": "Garcia",
+                "contraseña": "SG123",
+                "correo": "sg@example.com",
+                "fecha_de_nacimiento": "1993/02/28",
+                "nombres": "Sofia"
+            }
+        ]
+    },
+    {
+        "solicitudes": [
+            {
+                "emisor": "rm@example.com",
+                "estado": "PENDIENTE",
+                "receptor": "dc@example.com"
+            },
+            {
+                "emisor": "ev@example.com",
+                "estado": "PENDIENTE",
+                "receptor": "pn@example.com"
+            },
+            {
+                "emisor": "ls@example.com",
+                "estado": "PENDIENTE",
+                "receptor": "ir@example.com"
+            },
+            {
+                "emisor": "dc@example.com",
+                "estado": "PENDIENTE",
+                "receptor": "ev@example.com"
+            },
+            {
+                "emisor": "rm@example.com",
+                "estado": "PENDIENTE",
+                "receptor": "dc@example.com"
+            },
+            {
+                "emisor": "ev@example.com",
+                "estado": "PENDIENTE",
+                "receptor": "pn@example.com"
+            },
+            {
+                "emisor": "ls@example.com",
+                "estado": "PENDIENTE",
+                "receptor": "ir@example.com"
+            },
+            {
+                "emisor": "dc@example.com",
+                "estado": "PENDIENTE",
+                "receptor": "ev@example.com"
+            }
+        ]
+    },
+    {
+        "amigos": [
+            {
+                "nombreEmisor": "Carlos",
+                "nombreReceptor": "Maria"
+            },
+            {
+                "nombreEmisor": "Carlos",
+                "nombreReceptor": "Ana"
+            },
+            {
+                "nombreEmisor": "Carlos",
+                "nombreReceptor": "Pedro"
+            },
+            {
+                "nombreEmisor": "Carlos",
+                "nombreReceptor": "Lucia"
+            },
+            {
+                "nombreEmisor": "Carlos",
+                "nombreReceptor": "Miguel"
+            },
+            {
+                "nombreEmisor": "Maria",
+                "nombreReceptor": "Jose"
+            },
+            {
+                "nombreEmisor": "Maria",
+                "nombreReceptor": "Sofia"
+            },
+            {
+                "nombreEmisor": "Maria",
+                "nombreReceptor": "Laura"
+            },
+            {
+                "nombreEmisor": "Ana",
+                "nombreReceptor": "Jose"
+            },
+            {
+                "nombreEmisor": "Ana",
+                "nombreReceptor": "Sofia"
+            },
+            {
+                "nombreEmisor": "Ana",
+                "nombreReceptor": "Maria"
+            },
+            {
+                "nombreEmisor": "Ana",
+                "nombreReceptor": "Elena"
+            },
+            {
+                "nombreEmisor": "Pedro",
+                "nombreReceptor": "Jose"
+            },
+            {
+                "nombreEmisor": "Pedro",
+                "nombreReceptor": "Sofia"
+            },
+            {
+                "nombreEmisor": "Lucia",
+                "nombreReceptor": "Jose"
+            }
+        ]
+    }
+]

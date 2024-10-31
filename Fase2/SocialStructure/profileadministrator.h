@@ -25,10 +25,10 @@ class ProfileAdministrator : public QMainWindow
 public:
     explicit ProfileAdministrator(QWidget *parent = nullptr);
     ~ProfileAdministrator();
-    void cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst);
+    void cargaArchivo(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, PilaSolicitudes* pilasol, ListaSimpleSolicitudes* listasol, ListOfList* listooflst, ListaSimple* listaSolicitudesEnvi);
     void addButtonsToTable();
 
-    ListaSimple listaSolicitudesEnviadas;
+    // ListaSimple listaSolicitudesEnviadas;
 
 private slots:
     void on_actionclosesesionadmin_triggered();
@@ -67,6 +67,7 @@ private:
     ListaSimpleSolicitudes* listaSolicitudes;
     ListOfList* listOfList;
     //FrequencyList* frequencyList;
+    ListaSimple* listaSolicitudesEnviadas;
 };
 
 #endif // PROFILEADMINISTRATOR_H

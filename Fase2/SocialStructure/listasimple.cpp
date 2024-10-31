@@ -1,5 +1,10 @@
 #include "listasimple.h"
 #include <iostream>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QFile>
+#include <QDebug>
 
 ListaSimple::ListaSimple() : cabeza(nullptr) {}
 
@@ -96,6 +101,19 @@ void ListaSimple::buscarPorEmisor(const std::string& emisor) {
         if (actual->emisor == emisor) {
             listaSolicitudes->agregarSolicitud(actual->emisor, actual->receptor, actual->estado);
         }
+        actual = actual->siguiente;
+    }
+}
+
+
+void ListaSimple::guardarRelacionesEnJson(QJsonArray& relacionesArray) const {
+    SolicitudAmistad* actual = cabeza;
+    while (actual != nullptr) {
+        QJsonObject relacionObj;
+        relacionObj["emisor"] = QString::fromStdString(actual->emisor);
+        relacionObj["receptor"] = QString::fromStdString(actual->receptor);
+        relacionObj["estado"] = QString::fromStdString(actual->estado);
+        relacionesArray.append(relacionObj);
         actual = actual->siguiente;
     }
 }

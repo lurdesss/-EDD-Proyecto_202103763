@@ -124,7 +124,7 @@ void ProfileUser::on_actionInformation_triggered()
 {
     QMessageBox msgBox;
     QString message = 
-        "<b>PROYECTO FASE 2</b><br>"
+        "<b>PROYECTO FASE 3</b><br>"
         "<br><b>Nombre:</b> Jennifer Yulissa Lourdes Taperio Manuel<br>"
         "<b>Carnet:</b> 202103763<br>"
         "<b>Curso:</b> Estructura de Datos<br>"

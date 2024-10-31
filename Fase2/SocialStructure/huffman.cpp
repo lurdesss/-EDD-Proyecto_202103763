@@ -1,5 +1,6 @@
 #include "huffman.h"
 #include <cstdlib>
+#include <QString>
 
 // Implementación del constructor de HuffmanNode
 HuffmanNode::HuffmanNode(char ch, int freq) {
@@ -70,14 +71,30 @@ string decompress(HuffmanNode* root, const string& compressedText) {
     return decompressedText;
 }
 
+// Escapar caracteres especiales para Graphviz
+string escapeForGraphviz(const string& str) {
+    string escapedStr = str;
+    size_t pos = 0;
+    while ((pos = escapedStr.find("\"", pos)) != string::npos) {
+        escapedStr.insert(pos, "\\");
+        pos += 2; // Mover el índice después de las comillas escapadas
+    }
+    return escapedStr;
+}
+
 // Generar archivo .dot para Graphviz
 void generateDotFile(HuffmanNode* root, ofstream& dotFile, int& nullCount) {
     if (!root) return;
+
+    string label;
     if (!root->left && !root->right) {
-        dotFile << "    \"" << root << "\" [label=\"" << root->ch << " (" << root->freq << ")\"];\n";
+        label = escapeForGraphviz(string(1, root->ch)) + " (" + to_string(root->freq) + ")";
     } else {
-        dotFile << "    \"" << root << "\" [label=\"Freq: " << root->freq << "\"];\n";
+        label = "Freq: " + to_string(root->freq);
     }
+    
+    dotFile << "    \"" << root << "\" [label=\"" << label << "\"];\n";
+
     if (root->left) {
         dotFile << "    \"" << root << "\" -> \"" << root->left << "\" [label=\"0\"];\n";
         generateDotFile(root->left, dotFile, nullCount);
@@ -85,6 +102,7 @@ void generateDotFile(HuffmanNode* root, ofstream& dotFile, int& nullCount) {
         dotFile << "    null" << nullCount << " [shape=point];\n";
         dotFile << "    \"" << root << "\" -> null" << nullCount++ << " [label=\"0\"];\n";
     }
+
     if (root->right) {
         dotFile << "    \"" << root << "\" -> \"" << root->right << "\" [label=\"1\"];\n";
         generateDotFile(root->right, dotFile, nullCount);
@@ -94,16 +112,22 @@ void generateDotFile(HuffmanNode* root, ofstream& dotFile, int& nullCount) {
     }
 }
 
-// Crear archivo .dot y convertir a imagen PNG
 void createGraph(HuffmanNode* root) {
-    ofstream dotFile("huffman_tree.dot");
+    QString rutaSalida = "/home/lurdes/Escritorio/datastructures/-EDD-Proyecto_202103763/Fase2/SocialStructure/salida/huffman_tree.dot";
+    ofstream dotFile(rutaSalida.toStdString());
+    
     dotFile << "digraph G {\n";
     dotFile << "    node [fontname=\"Arial\"];\n";
     int nullCount = 0;
     generateDotFile(root, dotFile, nullCount);
     dotFile << "}\n";
     dotFile.close();
-    cout << "Archivo 'huffman_tree.dot' generado correctamente.\n";
-    system("dot -Tpng huffman_tree.dot -o huffman_tree.png");
-    cout << "Imagen PNG generada: huffman_tree.png\n";
+    
+    std::cout << "Archivo 'huffman_tree.dot' generado correctamente.\n";
+    
+    // Ejecutar el comando para convertir el archivo .dot a .png
+    std::string command = "dot -Tpng " + rutaSalida.toStdString() + " -o /home/lurdes/Escritorio/datastructures/-EDD-Proyecto_202103763/Fase2/SocialStructure/salida/huffman_tree.png";
+    system(command.c_str());
+    
+    std::cout << "Imagen PNG generada: huffman_tree.png\n";
 }

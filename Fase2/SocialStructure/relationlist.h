@@ -6,6 +6,8 @@
 #include <memory>
 #include <string>
 #include "listasugerencias.h"
+#include <QString>
+#include <QJsonArray> 
 
 using namespace std;
 
@@ -62,6 +64,7 @@ public:
     void graphMeFriendsAndTheirFriends(const string& startNode);
     void graphOfAdyacencia();
     void cargaData(ListaSugerencias* listasug);
+    void guardarAmigosEnJson(QJsonArray& amigosArray);
 
 private:
     ListaSugerencias* listaSugerencias;

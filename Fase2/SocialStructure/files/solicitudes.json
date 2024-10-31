@@ -19,9 +19,9 @@
 
     { "emisor": "ah@example.com", "receptor": "ev@example.com", "estado": "ACEPTADA" },
 
-    { "emisor": "rm@example.com", "receptor": "dc@example.com", "estado": "ACEPTADA" },
-    { "emisor": "ev@example.com", "receptor": "pn@example.com", "estado": "ACEPTADA" },
+    { "emisor": "rm@example.com", "receptor": "dc@example.com", "estado": "PENDIENTE" },
+    { "emisor": "ev@example.com", "receptor": "pn@example.com", "estado": "PENDIENTE" },
 
-    { "emisor": "ls@example.com", "receptor": "ir@example.com", "estado": "ACEPTADA" },
-    { "emisor": "dc@example.com", "receptor": "ev@example.com", "estado": "ACEPTADA" }
+    { "emisor": "ls@example.com", "receptor": "ir@example.com", "estado": "PENDIENTE" },
+    { "emisor": "dc@example.com", "receptor": "ev@example.com", "estado": "PENDIENTE" }
   ]

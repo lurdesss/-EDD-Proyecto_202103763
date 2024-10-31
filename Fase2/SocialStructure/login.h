@@ -19,6 +19,9 @@ class Login : public QMainWindow
 public:
     Login(QWidget *parent = nullptr);
     ~Login();
+    void huffmanJson();
+    void guardarTodoEnJson(const QString& filePath);
+    void cargandoDefaultIfExists();
 
 private slots:
     void on_pushButton_login_clicked();
