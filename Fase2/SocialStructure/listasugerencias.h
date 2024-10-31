@@ -14,6 +14,8 @@ public:
     void agregarSugerencia(int frecuencia, const std::string& usuario);
     void ordenarPorFrecuencia();
     void mostrarLista();
+    void filtrarUsuariosDuplicados();
+    NodoSugerencias* obtenerCabeza() const;  // Declaración
 };
 
 #endif

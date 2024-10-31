@@ -5,6 +5,7 @@
 #include <fstream>
 #include <memory>
 #include <string>
+#include "listasugerencias.h"
 
 using namespace std;
 
@@ -60,6 +61,10 @@ public:
     void graph();
     void graphMeFriendsAndTheirFriends(const string& startNode);
     void graphOfAdyacencia();
+    void cargaData(ListaSugerencias* listasug);
+
+private:
+    ListaSugerencias* listaSugerencias;
 };
 
 

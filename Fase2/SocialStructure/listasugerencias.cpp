@@ -1,5 +1,6 @@
 #include "listasugerencias.h"
 #include <iostream>
+#include <unordered_set>
 
 ListaSugerencias::ListaSugerencias() : cabeza(nullptr) {}
 
@@ -38,10 +39,42 @@ void ListaSugerencias::ordenarPorFrecuencia() {
     } while (cambio);
 }
 
+void ListaSugerencias::filtrarUsuariosDuplicados() {
+    if (!cabeza) return;
+
+    std::unordered_set<std::string> usuariosEncontrados;
+    NodoSugerencias* actual = cabeza;
+    NodoSugerencias* previo = nullptr;
+
+    while (actual) {
+        if (usuariosEncontrados.find(actual->usuario) != usuariosEncontrados.end()) {
+            // Si el usuario ya fue agregado, eliminamos el nodo actual
+            NodoSugerencias* nodoAEliminar = actual;
+            actual = actual->siguiente;
+            if (previo) {
+                previo->siguiente = actual;
+            } else {
+                cabeza = actual;
+            }
+            delete nodoAEliminar;
+        } else {
+            // Agregamos el usuario al conjunto y avanzamos en la lista
+            usuariosEncontrados.insert(actual->usuario);
+            previo = actual;
+            actual = actual->siguiente;
+        }
+    }
+}
+
 void ListaSugerencias::mostrarLista() {
     NodoSugerencias* actual = cabeza;
     while (actual) {
         std::cout << "Usuario: " << actual->usuario << ", Frecuencia: " << actual->frecuencia << std::endl;
         actual = actual->siguiente;
     }
+}
+
+
+NodoSugerencias* ListaSugerencias::obtenerCabeza() const {
+    return cabeza;
 }

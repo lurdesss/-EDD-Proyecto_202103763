@@ -45,13 +45,17 @@ private slots:
 
     void on_pushButton_cargapublicaciones_clicked();
 
-    void on_pushButton_reportesfromadminsi_clicked();
-
     void on_pushButton_searchemail_admin_clicked();
 
     void on_pushButton_ordercaseaplicar_clicked();
 
-    void on_pushButton_reportesfromadminsi_2_clicked();
+    void on_pushButton_reporte_adyacencia_clicked();
+
+    void on_pushButton_reporte_grafo_clicked();
+
+    void on_pushButton_reporte_blockchain_clicked();
+
+    void on_pushButton_reporte_merkle_clicked();
 
 private:
     Ui::ProfileAdministrator *ui;

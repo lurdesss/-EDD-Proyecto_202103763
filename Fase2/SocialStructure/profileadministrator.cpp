@@ -6,17 +6,17 @@
 #include <fstream>
 #include "nlohmann/json.hpp"
 #include <QDir>  // Para manejar rutas
-#include <QFile> 
+#include <QFile>
 #include <QImage>       // Para cargar la imagen
-#include <QPixmap> 
+#include <QPixmap>
 #include <QTimer>
 #include <QSignalMapper>
 #include "contador.h"
-#include <map>
+
 
 using json = nlohmann::json;
-
 QString rutaBase = "/home/lurdes/Escritorio/datastructures/-EDD-Proyecto_202103763/Fase2/SocialStructure/";
+
 
 ProfileAdministrator::ProfileAdministrator(QWidget *parent)
     : QMainWindow(parent)
@@ -26,8 +26,8 @@ ProfileAdministrator::ProfileAdministrator(QWidget *parent)
     ui->widget_buscarsi->show();
     ui->widget_cargasi->hide();
     ui->widget_reportessi->hide();
-    
-    
+
+
 }
 
 ProfileAdministrator::~ProfileAdministrator()
@@ -41,8 +41,8 @@ void ProfileAdministrator::on_actioncargamasiva_triggered()
     ui->widget_buscarsi->hide();
     ui->widget_cargasi->show();
     ui->widget_reportessi->hide();
-    
-    
+
+
 }
 
 // Nueva función para recibir el árbol desde el login
@@ -236,26 +236,26 @@ void ProfileAdministrator::on_pushButton_cargasolicitudes_clicked()
             if (!existeAceptada) { // no deberia negarse ?
                 // Inserta en la matriz de amigos y agrega la solicitud aceptada
                 cout << "La solicitud de " << emisor.toStdString() << " a " << receptor.toStdString() << " ha sido añadida con estado: ACEPTADA DEFECTO" << endl;
-                
+
                 Usuario* thisemisor = arbolUsuariosGeneral->preordenBuscarCorreo(arbolUsuariosGeneral->raiz, emisor);
                 qDebug() << thisemisor;
                 int emisorId = thisemisor->id;
-                std::string emisorName = thisemisor->nombres.toStdString();
+                std::string emisorEmail = thisemisor->nombres.toStdString();
                 Usuario* thisreceptor = arbolUsuariosGeneral->preordenBuscarCorreo(arbolUsuariosGeneral->raiz, receptor);
                 qDebug() << thisreceptor;
                 int receptorId = thisreceptor->id;
-                std::string receptorName = thisreceptor->nombres.toStdString();
-                listOfList->insert(emisorId, receptorId, emisorName, receptorName);
+                std::string receptorEmail = thisreceptor->nombres.toStdString();
+                listOfList->insert(emisorId, receptorId, emisorEmail, receptorEmail);
                 qDebug() << "llamo a print ----------------";
                 listOfList->print();
                 qDebug() << "end -----------------";
-                listOfList->graph();
 
-                listOfList->graphMeFriendsAndTheirFriends("Fase2");
+
+                //listOfList->graphMeFriendsAndTheirFriends("Fase2");
                 //gasdgsa =new Lisat ....();
                 //listOfList->funcion(usuario, lista);
 
-                listOfList->graphOfAdyacencia();
+
                 }
             }
         }
@@ -309,7 +309,7 @@ void ProfileAdministrator::on_pushButton_cargapublicaciones_clicked()
         listaDoblePublicaciones->mostrarPublicaciones();
 
         Node* NodoTmp = arbolUsuariosGeneral->preordenBuscarCorreoNodo(arbolUsuariosGeneral->raiz, correo);
-        
+
         Publicaciones* publi = new Publicaciones(correo, contenido, fecha, hora);
 
 
@@ -330,8 +330,8 @@ void ProfileAdministrator::on_pushButton_cargapublicaciones_clicked()
 
                 // si
 
-                Comentario* come = new Comentario(correoComentario,textoComentario,fechaComentario,horaComentario);
-                NodoTmp->abbcadausr->raiz->nodoAB->insert(come);
+                //Comentario* come = new Comentario(correoComentario,textoComentario,fechaComentario,horaComentario);
+                //NodoTmp->abbcadausr->raiz->nodoAB->insert(come);
                 //qDebug() << "si ccomentarios";
                 //NodoTmp->abbcadausr->raiz->nodoAB->printTree(NodoTmp->abbcadausr->raiz->nodoAB->root);
                 //qDebug() << "traversal";
@@ -343,22 +343,22 @@ void ProfileAdministrator::on_pushButton_cargapublicaciones_clicked()
 
         qDebug() << "-------------------------------";
 
-        
+
     }
 
 
     std::cerr << "ya jalo tu :D" << std::endl;
-    Node* NodoTemp = arbolUsuariosGeneral->preordenBuscarCorreoNodo(arbolUsuariosGeneral->raiz, "jm@example.com");
+    //Node* NodoTemp = arbolUsuariosGeneral->preordenBuscarCorreoNodo(arbolUsuariosGeneral->raiz, "jm@example.com");
     //0NodoTemp->abbcadausr->preorder(NodoTemp->abbcadausr->raiz);
     qDebug() << "------------------------------- aca";
-    NodoTemp->abbcadausr->raiz->nodoAB->traversal(NodoTemp->abbcadausr->raiz->nodoAB->root);
+    //NodoTemp->abbcadausr->raiz->nodoAB->traversal(NodoTemp->abbcadausr->raiz->nodoAB->root);
     // std::cout << std::endl;
 
 
     listaDoblePublicaciones->generateDot("publicaciones.dot");
     listaDoblePublicaciones->renderGraphviz("publicaciones.dot", "publicaciones.png");
 
-    
+
 
 }
 
@@ -368,8 +368,8 @@ void ProfileAdministrator::on_actionbuscar_triggered()
     ui->widget_buscarsi->show();
     ui->widget_cargasi->hide();
     ui->widget_reportessi->hide();
-    
-    
+
+
 }
 
 
@@ -386,57 +386,23 @@ void ProfileAdministrator::on_actionreportes_triggered()
     ui->widget_buscarsi->hide();
     ui->widget_cargasi->hide();
     ui->widget_reportessi->show();
-    
-    
+
+
 
     // reportes
-    ui->label_tituloavlsi->hide();
-    ui->label_foradminavltreesi->hide();
-    ui->label_titulolistasi->hide();
-    ui->label_forlistadepostssi->hide();
+    //ui->label_tituloimage->hide();
+    //ui->label_forimages->hide();
 
-}
-
-
-void ProfileAdministrator::on_pushButton_reportesfromadminsi_clicked()
-{   
-    ui->label_titulolistasi->hide();
-    ui->label_forlistadepostssi->hide();
-    ui->label_tituloavlsi->show();
-    ui->label_foradminavltreesi->show();
-    // Definir la ruta completa de la imagen
-    QString rutaImagen = rutaBase + "salida/arbol_avl.png";
-
-    // Verificar si la imagen existe
-    if (!QFile::exists(rutaImagen)) {
-        QMessageBox::warning(this, "Error", "No se encontró la imagen en la ruta: " + rutaImagen);
-        return;
-    }
-
-    // Cargar la imagen desde la ruta
-    QImage image(rutaImagen);
-
-    // Verificar si la imagen se cargó correctamente
-    if (image.isNull()) {
-        QMessageBox::warning(this, "Error", "Error al cargar la imagen: " + rutaImagen);
-        return;
-    }
-
-    // Asignar la imagen a un QLabel
-    ui->label_foradminavltreesi->setPixmap(QPixmap::fromImage(image));
-
-    // Ajustar el tamaño del QLabel para que se ajuste a la imagen
-    ui->label_foradminavltreesi->setScaledContents(true);
 }
 
 
 void ProfileAdministrator::on_pushButton_searchemail_admin_clicked()
-{   
+{
     QString userfound = ui->lineEdit_searchemail_admin->text();
 
     Usuario* usuarioEncontrado = arbolUsuariosGeneral->preordenBuscarCorreo(arbolUsuariosGeneral->raiz, userfound);
     qDebug() << usuarioEncontrado;
-    
+
     if(usuarioEncontrado != nullptr){
         qDebug() << "Usuario encontrado";
         qDebug() << "Nombre: " << usuarioEncontrado->nombres;
@@ -444,11 +410,11 @@ void ProfileAdministrator::on_pushButton_searchemail_admin_clicked()
         qDebug() << "Correo: " << usuarioEncontrado->correo;
         qDebug() << "Contraseña: " << usuarioEncontrado->contrasena;
         qDebug() << "Fecha de nacimiento: " << usuarioEncontrado->fechaNacimiento;
-        
+
         // Limpiar el contenido del tableWidget antes de agregar los datos del nuevo usuario
         ui->tableWidget_fromsearch_admin->clearContents();
         ui->tableWidget_fromsearch_admin->setRowCount(1);  // Solo se mostrará una fila
-        
+
         // Agregar datos en las columnas correspondientes
         ui->tableWidget_fromsearch_admin->setItem(0, 0, new QTableWidgetItem(usuarioEncontrado->nombres));
         ui->tableWidget_fromsearch_admin->setItem(0, 1, new QTableWidgetItem(usuarioEncontrado->apellidos));
@@ -471,10 +437,10 @@ void ProfileAdministrator::on_pushButton_searchemail_admin_clicked()
             // eliminarUsuario(usuarioEncontrado);
         });
         ui->tableWidget_fromsearch_admin->setCellWidget(0, 5, deleteButton);  // Posición 5 para "Eliminar"
-        
+
     } else {
         qDebug() << "Usuario no encontrado";
-        
+
         // Limpiar el contenido si no se encuentra ningún usuario
         ui->tableWidget_fromsearch_admin->clearContents();
         ui->tableWidget_fromsearch_admin->setRowCount(0);
@@ -512,7 +478,7 @@ void ProfileAdministrator::on_pushButton_ordercaseaplicar_clicked() {
 
     // Llamar a la función para agregar botones después de llenar la tabla
     addButtonsToTable();
-    
+
     // Mostrar un mensaje sobre la opción seleccionada
     QMessageBox::information(this, "Opción Seleccionada", resultado);
 }
@@ -541,7 +507,7 @@ void ProfileAdministrator::addButtonsToTable() {
             // Utilizar un temporizador para evitar conflictos en la tabla
             QTimer::singleShot(0, this, [this, rowToDelete]() {
                 ui->tableWidget_fromsearch_admin->removeRow(rowToDelete);
-                
+
                 // Volver a agregar los botones después de eliminar
                 addButtonsToTable();
             });
@@ -549,13 +515,15 @@ void ProfileAdministrator::addButtonsToTable() {
     }
 }
 
-void ProfileAdministrator::on_pushButton_reportesfromadminsi_2_clicked()
-{   
-    ui->label_tituloavlsi->hide();
-    ui->label_foradminavltreesi->hide();
-    ui->label_titulolistasi->show();
-    ui->label_forlistadepostssi->show();
-    QString rutaimgposts = rutaBase + "salida/publicaciones.png";
+
+void ProfileAdministrator::on_pushButton_reporte_adyacencia_clicked()
+{
+    // realizado graph_adyacencia.png
+    listOfList->graphOfAdyacencia();
+    ui->label_tituloimages->clear();
+    ui->label_tituloimages->setText("Lista de Adyacencia de Amistades");
+    ui->label_forimages->clear();
+    QString rutaimgposts = rutaBase + "salida/graph_adyacencia.png";
     // Verificar si la imagen existe
     if (!QFile::exists(rutaimgposts)) {
         QMessageBox::warning(this, "Error", "No se encontró la imagen en la ruta: " + rutaimgposts);
@@ -572,10 +540,60 @@ void ProfileAdministrator::on_pushButton_reportesfromadminsi_2_clicked()
     }
 
     // Asignar la imagen a un QLabel
-    ui->label_forlistadepostssi->setPixmap(QPixmap::fromImage(image));
+    ui->label_forimages->setPixmap(QPixmap::fromImage(image));
 
     // Ajustar el tamaño del QLabel para que se ajuste a la imagen
-    ui->label_forlistadepostssi->setScaledContents(true);
+    ui->label_forimages->setScaledContents(true);
 
+}
+
+
+void ProfileAdministrator::on_pushButton_reporte_grafo_clicked()
+{
+    // realizado
+    listOfList->graph();
+    ui->label_tituloimages->clear();
+    ui->label_tituloimages->setText("Grafo de Amistades");
+    ui->label_forimages->clear();
+    QString rutaimgposts = rutaBase + "salida/graph.png";
+    // Verificar si la imagen existe
+    if (!QFile::exists(rutaimgposts)) {
+        QMessageBox::warning(this, "Error", "No se encontró la imagen en la ruta: " + rutaimgposts);
+        return;
+    }
+
+    // Cargar la imagen desde la ruta
+    QImage image(rutaimgposts);
+
+    // Verificar si la imagen se cargó correctamente
+    if (image.isNull()) {
+        QMessageBox::warning(this, "Error", "Error al cargar la imagen: " + rutaimgposts);
+        return;
+    }
+
+    // Asignar la imagen a un QLabel
+    ui->label_forimages->setPixmap(QPixmap::fromImage(image));
+
+    // Ajustar el tamaño del QLabel para que se ajuste a la imagen
+    ui->label_forimages->setScaledContents(true);
+}
+
+
+void ProfileAdministrator::on_pushButton_reporte_blockchain_clicked()
+{
+    // no
+    ui->label_tituloimages->clear();
+    ui->label_tituloimages->setText("Blockchain");
+    ui->label_forimages->clear();
+
+}
+
+
+void ProfileAdministrator::on_pushButton_reporte_merkle_clicked()
+{
+    // no
+    ui->label_tituloimages->clear();
+    ui->label_tituloimages->setText("Árbol de Merkle");
+    ui->label_forimages->clear();
 }
 

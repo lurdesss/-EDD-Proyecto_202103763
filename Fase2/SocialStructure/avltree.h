@@ -8,6 +8,11 @@
 #include <QTableWidget>
 #include "abb.h"
 
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QFile>
+
 class Usuario {
 public:
     int id;
@@ -55,6 +60,10 @@ public:
     void postordenCase(Node* tmp, QTableWidget* tableWidget, int& localIndex);
     void inordenCase(Node* tmp, QTableWidget* tableWidget, int& localIndex);
     Node* preordenBuscarCorreoNodo(Node* tmp, const QString& correo);
+
+    // Usuario* preordenBuscarNombres(Node* tmp, const std::string& nombres);
+    Usuario* preordenBuscarNombres(Node* tmp, const QString& nombres);
+    void preordenCaseToJson(Node* tmp, QJsonArray& usuariosArray);
 
 private:
     void add(Usuario* user, Node*& tmp);

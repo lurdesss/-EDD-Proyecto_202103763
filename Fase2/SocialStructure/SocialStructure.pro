@@ -24,6 +24,7 @@ SOURCES += \
     main.cpp \
     login.cpp \
     matrix.cpp \
+    merkletree.cpp \
     nodoamigos.cpp \
     nodosolicitud.cpp \
     pilasolicitudes.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     listasugerencias.h \
     login.h \
     matrix.h \
+    merkletree.h \
     nodoamigos.h \
     nodosolicitud.h \
     nodosugerencias.h \

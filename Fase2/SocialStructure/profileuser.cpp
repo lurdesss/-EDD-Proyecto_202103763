@@ -3,9 +3,16 @@
 #include "login.h"
 #include "QMessageBox"
 #include "globals.h"
+#include "listasugerencias.h"
+#include <QPushButton>
+#include <QTableWidgetItem>
 
 QString valorEntradaEn;
 QString correollegada;
+QString nameforgraph;
+std::string valueofname;
+
+ListaSugerencias* listaSugerencias = new ListaSugerencias();
 
 // ProfileUser::ProfileUser(QWidget *parent)
 ProfileUser::ProfileUser(QWidget *parent, const QString &name, const QString &lastname, const QString &email, const QString &password, const QString &date)
@@ -35,6 +42,9 @@ ProfileUser::ProfileUser(QWidget *parent, const QString &name, const QString &la
 
     valorEntradaEn = name + " " + lastname;
     correollegada = email;
+    nameforgraph = name;
+    valueofname = nameforgraph.toStdString();
+
 }
 
 ProfileUser::~ProfileUser()
@@ -96,6 +106,7 @@ void ProfileUser::on_actionReports_triggered()
     ui->widget->hide();
     ui->awidget_reportes->show();
     ui->label_imagereportehere->hide();
+    listOfList->cargaData(listaSugerencias);
 }
 
 
@@ -233,11 +244,12 @@ void ProfileUser::on_pushButton_delete_clicked()
     }
 }
 
-void ProfileUser::cargaData(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi) {
+void ProfileUser::cargaData(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, ListOfList* listooflst) {
     this->arbolUsuariosGeneral = arbol;  // Asignar el árbol
     this->listaDoblePublicaciones = lista;  // Asignar la lista de publicaciones
     this->abbPublicaciones = abbsi; // Asignar la lista de publicaciones
     this->btreeComentarios = btreesi; // Asignar la lista de comentarios de publicaciones
+    this->listOfList = listooflst;
 }
 
 void ProfileUser::on_pushButton_search_fromuser_clicked()
@@ -270,21 +282,13 @@ void ProfileUser::on_pushButton_search_fromuser_clicked()
 
 void ProfileUser::on_pushButton_generareporte_clicked()
 {   
+    // aca genera
+    //listOfList->cargaData(listaSugerencias);
     ui->label_imagereportehere->show();
-    // Obtener el nodo del árbol del usuario actual
-    Node* NodoTemp = arbolUsuariosGeneral->preordenBuscarCorreoNodo(arbolUsuariosGeneral->raiz, correollegada);
-    
-    // Verificar si se encontró el nodo
-    if (!NodoTemp || !NodoTemp->abbcadausr) {
-        QMessageBox::warning(this, "Error", "Usuario no encontrado o sin árbol.");
-        return;
-    }
-
-    // Generar el archivo DOT y la imagen PNG del ABB de publicaciones del usuario
-    NodoTemp->abbcadausr->exportToDotAndGenerateImage();
+    listOfList->graphMeFriendsAndTheirFriends(valueofname);
 
     // Ruta de la imagen generada
-    QString rutaImagen = "../../salida/arbol.png";
+    QString rutaImagen = "../../salida/graph_friends.png";
 
     // Mostrar la imagen generada en el QLabel
     QPixmap pixmap(rutaImagen);
@@ -338,4 +342,54 @@ void ProfileUser::on_pushButton_aplicarorden_clicked()
     // Mostrar el resultado en el label
     ui->label_imagenamostrar->setText(resultado);
     qDebug() << resultado; // Esto es opcional, para verificar en la consola
+}
+
+
+void ProfileUser::on_pushButton_versugerencias_clicked()
+{
+    // Limpiamos el tableWidget antes de añadir los datos
+    ui->tableWidget_sugerencias->clearContents();
+    ui->tableWidget_sugerencias->setRowCount(0);
+
+    // Procesamos la lista de sugerencias
+    // trabajando
+    listOfList->graphMeFriendsAndTheirFriends(valueofname);
+    listaSugerencias->ordenarPorFrecuencia();
+    listaSugerencias->filtrarUsuariosDuplicados();
+    listaSugerencias->mostrarLista();
+    // ACA VA tableWidget_sugerencias
+
+    NodoSugerencias* actual = listaSugerencias->obtenerCabeza();
+    int row = 0;
+
+    while (actual) {
+        ui->tableWidget_sugerencias->insertRow(row);
+
+        std::string usrforshow = actual->usuario;
+
+        // Convertir std::string a QString
+        QString usrforshowQString = QString::fromStdString(usrforshow);
+
+        Usuario* aname = arbolUsuariosGeneral->preordenBuscarNombres(arbolUsuariosGeneral->raiz, usrforshowQString);
+        
+        // Columna Usuario
+        QTableWidgetItem* usuarioItem = new QTableWidgetItem(QString::fromStdString(usrforshow));
+        ui->tableWidget_sugerencias->setItem(row, 0, usuarioItem);
+
+        // Columna Correo (mismo nombre que en Usuario)
+        QTableWidgetItem* correoItem = new QTableWidgetItem(aname->correo);
+        ui->tableWidget_sugerencias->setItem(row, 1, correoItem);
+
+        // Columna Cantidad
+        QTableWidgetItem* frecuenciaItem = new QTableWidgetItem(QString::number(actual->frecuencia));
+        ui->tableWidget_sugerencias->setItem(row, 2, frecuenciaItem);
+
+        // Columna Action (Botón Aceptar)
+        QPushButton* anadirButton = new QPushButton("Añadir");
+        ui->tableWidget_sugerencias->setCellWidget(row, 3, anadirButton);
+
+        // Incrementamos la fila
+        row++;
+        actual = actual->siguiente;
+    }
 }

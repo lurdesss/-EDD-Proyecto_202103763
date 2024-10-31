@@ -25,6 +25,8 @@ private slots:
 
     void on_pushButton_createacc_clicked();
 
+    void on_pushButton_cloaseapp_clicked();
+
 private:
     Ui::Login *ui;
     ProfileUser *profileUser;

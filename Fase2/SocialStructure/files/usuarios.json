@@ -1,80 +1,108 @@
 [
     {
-        "nombres": "Carlos",
-        "apellidos": "Gomez",
-        "fecha_de_nacimiento": "1990/05/12",
-        "correo": "cg@example.com",
-        "contraseña": "carlospass"
+      "nombres": "Carlos",
+      "apellidos": "Gomez",
+      "fecha_de_nacimiento": "1990/05/12",
+      "correo": "cg@example.com",
+      "contraseña": "CG123"
     },
     {
-        "nombres": "Maria",
-        "apellidos": "Lopez",
-        "fecha_de_nacimiento": "1985/08/23",
-        "correo": "ml@example.com",
-        "contraseña": "mariapass"
+      "nombres": "Maria",
+      "apellidos": "Lopez",
+      "fecha_de_nacimiento": "1985/04/20",
+      "correo": "ml@example.com",
+      "contraseña": "ML123"
     },
     {
-        "nombres": "Juan",
-        "apellidos": "Martinez",
-        "fecha_de_nacimiento": "1992/02/17",
-        "correo": "jm@example.com",
-        "contraseña": "juanpass"
+      "nombres": "Juan",
+      "apellidos": "Martinez",
+      "fecha_de_nacimiento": "1992/08/15",
+      "correo": "jm@example.com",
+      "contraseña": "JM123"
     },
     {
-        "nombres": "Ana",
-        "apellidos": "Hernandez",
-        "fecha_de_nacimiento": "1995/11/30",
-        "correo": "ah@example.com",
-        "contraseña": "anapass"
+      "nombres": "Ana",
+      "apellidos": "Hernandez",
+      "fecha_de_nacimiento": "1994/07/10",
+      "correo": "ah@example.com",
+      "contraseña": "AH123"
     },
     {
-        "nombres": "Luis",
-        "apellidos": "Perez",
-        "fecha_de_nacimiento": "1988/04/09",
-        "correo": "lp@example.com",
-        "contraseña": "luispass"
+      "nombres": "Pedro",
+      "apellidos": "Gonzalez",
+      "fecha_de_nacimiento": "1988/06/30",
+      "correo": "pg@example.com",
+      "contraseña": "PG123"
     },
     {
-        "nombres": "Laura",
-        "apellidos": "Ramirez",
-        "fecha_de_nacimiento": "1993/09/05",
-        "correo": "lr@example.com",
-        "contraseña": "laurapass"
+      "nombres": "Lucia",
+      "apellidos": "Ramirez",
+      "fecha_de_nacimiento": "1991/11/05",
+      "correo": "lr@example.com",
+      "contraseña": "LR123"
     },
     {
-        "nombres": "Jose",
-        "apellidos": "Garcia",
-        "fecha_de_nacimiento": "1991/07/14",
-        "correo": "jg@example.com",
-        "contraseña": "josepass"
+      "nombres": "Miguel",
+      "apellidos": "Diaz",
+      "fecha_de_nacimiento": "1987/12/22",
+      "correo": "md@example.com",
+      "contraseña": "MD123"
     },
     {
-        "nombres": "Elena",
-        "apellidos": "Torres",
-        "fecha_de_nacimiento": "1987/12/22",
-        "correo": "et@example.com",
-        "contraseña": "elenapass"
+      "nombres": "Sofia",
+      "apellidos": "Garcia",
+      "fecha_de_nacimiento": "1993/02/28",
+      "correo": "sg@example.com",
+      "contraseña": "SG123"
     },
     {
-        "nombres": "Miguel",
-        "apellidos": "Rodriguez",
-        "fecha_de_nacimiento": "1989/03/11",
-        "correo": "mr@example.com",
-        "contraseña": "miguelpass"
+      "nombres": "Jose",
+      "apellidos": "Perez",
+      "fecha_de_nacimiento": "1989/10/14",
+      "correo": "jp@example.com",
+      "contraseña": "JP123"
     },
     {
-        "nombres": "Sofia",
-        "apellidos": "Gonzalez",
-        "fecha_de_nacimiento": "1994/06/28",
-        "correo": "sg@example.com",
-        "contraseña": "sofiapass"
+      "nombres": "Raul",
+      "apellidos": "Morales",
+      "fecha_de_nacimiento": "1986/09/21",
+      "correo": "rm@example.com",
+      "contraseña": "RM123"
     },
     {
-        "nombres": "Fase2",
-        "apellidos": "Calificacion",
-        "fecha_de_nacimiento": "2000/01/01",
-        "correo": "f2@gmail.com",
-        "contraseña": "123"
+      "nombres": "Elena",
+      "apellidos": "Vargas",
+      "fecha_de_nacimiento": "1995/03/16",
+      "correo": "ev@example.com",
+      "contraseña": "EV123"
+    },
+    {
+      "nombres": "Laura",
+      "apellidos": "Suarez",
+      "fecha_de_nacimiento": "1990/01/29",
+      "correo": "ls@example.com",
+      "contraseña": "LS123"
+    },
+    {
+      "nombres": "David",
+      "apellidos": "Cruz",
+      "fecha_de_nacimiento": "1992/04/19",
+      "correo": "dc@example.com",
+      "contraseña": "DC123"
+    },
+    {
+      "nombres": "Pablo",
+      "apellidos": "Navarro",
+      "fecha_de_nacimiento": "1984/12/12",
+      "correo": "pn@example.com",
+      "contraseña": "PN123"
+    },
+    {
+      "nombres": "Isabel",
+      "apellidos": "Ruiz",
+      "fecha_de_nacimiento": "1996/06/02",
+      "correo": "ir@example.com",
+      "contraseña": "IR123"
     }
   ]
   

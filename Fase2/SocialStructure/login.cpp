@@ -9,7 +9,7 @@
 // include listasimple pila y grafo
 #include "pilasolicitudes.h"
 #include "listasimplesolicitudes.h"
-#include "listasimple.h" // solo lista simple
+// #include "listasimple.h" // solo lista simple
 #include "relationlist.h"
 
 AVLTree* arbolUsuariosGeneral = new AVLTree();
@@ -22,7 +22,6 @@ BTree* btreeComentarios = new BTree();
 PilaSolicitudes* pilaSolicitudes = new PilaSolicitudes();
 ListaSimpleSolicitudes* listaSolicitudes = new ListaSimpleSolicitudes();
 ListOfList* listOfList = new ListOfList();
-//FrequencyList* frequencyList = new FrequencyList();
 
 
 Usuario* usuarioensesion;
@@ -89,7 +88,7 @@ void Login::on_pushButton_login_clicked()
         // profileUser = new ProfileUser();  // Crea la ventana de perfil del usuario
         ProfileUser *profileUser = new ProfileUser(nullptr, nombresi, apellidosi, emailsi, passwordsi, cum);
         profileUser->show();
-        profileUser->cargaData(arbolUsuariosGeneral, listaDoblePublicaciones, abbPublicaciones, btreeComentarios);
+        profileUser->cargaData(arbolUsuariosGeneral, listaDoblePublicaciones, abbPublicaciones, btreeComentarios, listOfList);
 
         // pasa como parametros, estructuras inicializadas
         ListaSimple listaSimple;
@@ -117,4 +116,18 @@ void Login::on_pushButton_createacc_clicked()
     registrarUsuario = new RegistrarUsuario(arbolUsuariosGeneral);
     registrarUsuario->show();
 }
+
+// void Login::salidaJson(){
+//     // arbolUsuariosGeneral;
+//     // pilaSolicitudes;
+//     // listaSolicitudes;
+//     // listOfList;
+// }
+
+void Login::on_pushButton_cloaseapp_clicked()
+{
+    // huffman
+    QApplication::quit(); // Cierra la aplicación
+}
+
 

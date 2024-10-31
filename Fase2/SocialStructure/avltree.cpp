@@ -1,5 +1,9 @@
 #include "avltree.h"
 #include <QTableWidget>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QFile>
 
 
 // Definición del constructor de AVLTree
@@ -291,5 +295,54 @@ Usuario* AVLTree::buscarPorCorreo(Node* tmp, const QString& correo) {
     } else {
         // Se encontró el usuario
         return tmp->user;
+    }
+}
+
+
+#include <QString> // Asegúrate de incluir este encabezado para QString
+
+Usuario* AVLTree::preordenBuscarNombres(Node* tmp, const QString& nombres) {
+    if (tmp != nullptr) {
+        // Convierte QString a std::string
+        // std::string nombres = nombres.toStdString();
+        
+        // Compara el nombre proporcionado con el nombre del usuario en el nodo actual
+        if (nombres == tmp->user->nombres) {
+            return tmp->user;  // Se encontró el usuario, retornarlo
+        }
+
+        // Busca en el subárbol izquierdo
+        Usuario* usuarioIzq = preordenBuscarNombres(tmp->izq, nombres);
+        if (usuarioIzq != nullptr) {
+            return usuarioIzq;  // Si se encuentra en el subárbol izquierdo, retornarlo
+        }
+
+        // Busca en el subárbol derecho
+        Usuario* usuarioDer = preordenBuscarNombres(tmp->der, nombres);
+        if (usuarioDer != nullptr) {
+            return usuarioDer;  // Si se encuentra en el subárbol derecho, retornarlo
+        }
+    }
+    return nullptr;  // Si no se encuentra el usuario, retorna nullptr
+}
+
+
+
+void AVLTree::preordenCaseToJson(Node* tmp, QJsonArray& usuariosArray) {
+    if (tmp != nullptr) {
+        // Crear un objeto JSON para el usuario actual
+        QJsonObject usuarioObject;
+        usuarioObject["nombres"] = tmp->user->nombres;
+        usuarioObject["apellidos"] = tmp->user->apellidos;
+        usuarioObject["fecha_de_nacimiento"] = tmp->user->fechaNacimiento;
+        usuarioObject["correo"] = tmp->user->correo;
+        usuarioObject["contraseña"] = tmp->user->contrasena;
+
+        // Añadir el usuario al array de usuarios
+        usuariosArray.append(usuarioObject);
+
+        // Recorrer el subárbol izquierdo y derecho
+        preordenCaseToJson(tmp->izq, usuariosArray);
+        preordenCaseToJson(tmp->der, usuariosArray);
     }
 }

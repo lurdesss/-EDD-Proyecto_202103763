@@ -42,6 +42,10 @@ NodoRelaciones::NodoRelaciones(int idx, const string& n) : index(idx), name(n), 
 // Constructor de ListOfList
 ListOfList::ListOfList() : head(nullptr) {}
 
+void ListOfList::cargaData(ListaSugerencias* listasug){
+    this->listaSugerencias = listasug;
+}
+
 void ListOfList::insert(int index, int targetIndex, const string& sourceName, const string& targetName) {
     if (!head) {
         // Crear el primer nodo en la lista
@@ -280,11 +284,7 @@ void ListOfList::graphMeFriendsAndTheirFriends(const string& startNode) {
                         file << nextNode->name << " [color=\"" << friendNodeColor << "\", fontcolor=\"black\", style=\"filled\", shape=\"egg\"];" << endl;
 
                         cout << "Nodo de nivel 1 añadido: " << nextNode->name << endl;
-
-                        // CONTADOR QUE INCREMENTA ACA : contador1
-                        childFrequency.addChild(nextNode->name);
-                        cout << "Frecuencia de " << nextNode->name << " incrementada. Total: " << childFrequency.getFrequency(nextNode->name) << endl;
-                        // lista sugerencias add
+                        
                         break;
                     }
                     nextNode = nextNode->next;
@@ -298,7 +298,14 @@ void ListOfList::graphMeFriendsAndTheirFriends(const string& startNode) {
 
                         // CONTADOR QUE INCREMENTA ACA : contador2
                         childFrequency.addChild(nextNode->name);
-                        cout << "Frecuencia de " << nextNode->name << " incrementada. Total: " << childFrequency.getFrequency(nextNode->name) << endl;
+                        string nameusr1 = nextNode->name;
+                        int frq1 = childFrequency.getFrequency(nextNode->name);
+                        cout << "Frecuencia de " << nameusr1 << " incrementada. Total: " << frq1 << endl;
+                        if (listaSugerencias) {
+                            listaSugerencias->agregarSugerencia(frq1, nameusr1);
+                        } else {
+                            cout << "Error: listaSugerencias es nulo" << endl;
+                        }
 
                         break;
                     }
@@ -334,7 +341,14 @@ void ListOfList::graphMeFriendsAndTheirFriends(const string& startNode) {
 
                             // CONTADOR QUE INCREMENTA ACA : contador2
                             childFrequency.addChild(friendsOfParent->targetName);
-                            cout << "Frecuencia de " << friendsOfParent->targetName << " incrementada. Total: " << childFrequency.getFrequency(friendsOfParent->targetName) << endl;
+                            string nameusr2 = friendsOfParent->targetName;
+                            int frq2 = childFrequency.getFrequency(friendsOfParent->targetName);
+                            cout << "Frecuencia de " << nameusr2 << " incrementada. Total: " << frq2 << endl;
+                            if (listaSugerencias) {
+                                listaSugerencias->agregarSugerencia(frq2, nameusr2);
+                            } else {
+                                cout << "Error: listaSugerencias es nulo" << endl;
+                            }
                         }
                         friendsOfParent = friendsOfParent->next;
                     }

@@ -5,6 +5,7 @@
 #include "listapublicaciones.h"
 #include "abb.h"
 #include "btree.h"
+#include "relationlist.h"
 
 #include <QMainWindow>
 
@@ -20,7 +21,7 @@ public:
     // explicit ProfileUser(QWidget *parent = nullptr);
     explicit ProfileUser(QWidget *parent = nullptr, const QString &name = "", const QString &lastname = "", const QString &email = "", const QString &password = "", const QString &date = "");
     ~ProfileUser();
-    void cargaData(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi);
+    void cargaData(AVLTree* arbol, ListaDePublicaciones* lista, ABB* abbsi, BTree* btreesi, ListOfList* listooflst);
 
 private slots:
 
@@ -52,6 +53,8 @@ private slots:
 
     void on_pushButton_aplicarorden_clicked();
 
+    void on_pushButton_versugerencias_clicked();
+
 private:
     Ui::ProfileUser *ui;
     bool editPerformed;
@@ -59,6 +62,7 @@ private:
     ListaDePublicaciones* listaDoblePublicaciones;
     ABB* abbPublicaciones;
     BTree* btreeComentarios;
+    ListOfList* listOfList;
 };
 
 #endif // PROFILEUSER_H

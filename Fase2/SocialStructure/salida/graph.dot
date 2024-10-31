@@ -1,12 +1,22 @@
 graph G{
 rankdir=LR;
-Juan -- Fase2;
-Juan -- Ana;
-Fase2 -- Jose;
-Fase2 -- Miguel;
-Fase2 -- Sofia;
-Sofia -- Maria;
-Jose -- Maria;
-Miguel -- Maria;
-Maria -- Carlos;
+Carlos -- Maria;
+Carlos -- Ana;
+Carlos -- Pedro;
+Carlos -- Lucia;
+Carlos -- Miguel;
+Maria -- Jose;
+Maria -- Sofia;
+Maria -- Laura;
+Ana -- Jose;
+Ana -- Sofia;
+Ana -- Maria;
+Ana -- Elena;
+Pedro -- Jose;
+Pedro -- Sofia;
+Lucia -- Jose;
+Raul -- David;
+Elena -- Pablo;
+Laura -- Isabel;
+David -- Elena;
 }
